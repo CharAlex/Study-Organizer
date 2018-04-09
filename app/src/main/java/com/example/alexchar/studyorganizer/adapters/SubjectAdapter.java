@@ -42,7 +42,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.subjectName.setText(subjects.get(position).getSubjectName());
-        holder.subjectType.setText("Τύπος : " +subjects.get(position).getSubjectType());
+        holder.subjectType.setText("Τύπος: " +subjects.get(position).getSubjectType());
         holder.subjectSemester.setText("Εξάμηνο: " +subjects.get(position).getSubjectSemester());
         holder.subjectTeacher.setText("Καθηγητής: " +subjects.get(position).getSubjectTeacher());
         holder.subjectPoints.setText("Διδ. Μονάδες: " +String.valueOf(subjects.get(position).getSubjectPoints()));
@@ -56,9 +56,19 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
 
         //Change background color for every 2nd item
         if(position%2 == 0){
-            holder.rootView.setBackgroundResource(R.color.backgroundAccent);
-        }else{
-            holder.green_bar.setBackgroundResource(R.color.colorPrimary);
+            holder.rootView.setBackgroundResource(R.color.rowBlueLight);
+        }
+
+        if (position%5 == 0){
+            holder.green_bar.setBackgroundResource(R.color.randomColor1);
+        } else if (position%5 == 1){
+            holder.green_bar.setBackgroundResource(R.color.randomColor4);
+        } else if (position%5 == 2){
+            holder.green_bar.setBackgroundResource(R.color.randomColor3);
+        } else if (position%5 == 3){
+            holder.green_bar.setBackgroundResource(R.color.randomColor2);
+        } else if (position%5 == 4){
+            holder.green_bar.setBackgroundResource(R.color.randomColor5);
         }
 
         //Make click listener to each row item

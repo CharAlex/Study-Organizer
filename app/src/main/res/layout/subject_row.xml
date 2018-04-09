@@ -28,14 +28,19 @@
             android:layout_height="wrap_content"
             android:textSize="22dp"
             android:textStyle="bold"
-            android:textColor="#212121"
+            android:singleLine="true"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:background="@drawable/corner_radius"
             android:layout_marginLeft="8dp"
-            android:padding="2dp" />
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_marginLeft="8dp"
-            android:layout_height="2dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="8dp"
+            android:layout_height="1dp"
             android:layout_marginBottom="8dp"
             android:background="@color/backgroundMain"/>
 
@@ -44,6 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginBottom="8dp"
             >
             <TextView
                 android:id="@+id/subject_type"
@@ -52,10 +58,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:textColor="@color/colorPrimary"
-                android:maxLines="1"
-                android:inputType="text"
+                android:singleLine="true"
                 android:background="@drawable/corner_radius"
-                android:padding="4dp" />
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"/>
 
             <TextView
                 android:id="@+id/subject_semester"
@@ -63,30 +71,21 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimary"
-                android:maxLines="1"
-                android:inputType="text"
                 android:layout_marginLeft="8dp"
+                android:singleLine="true"
                 android:background="@drawable/corner_radius"
-                android:padding="4dp" />
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"/>
         </LinearLayout>
 
-        <!--Second line one column!-->
-        <TextView
-            android:id="@+id/subject_teacher"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/corner_radius"
-            android:padding="4dp" />
-
-        <!--Third line two columns!-->
+        <!--Second line two columns!-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginBottom="8dp"
             >
             <TextView
                 android:id="@+id/subject_points"
@@ -94,11 +93,13 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimary"
                 android:layout_weight="1"
+                android:singleLine="true"
                 android:layout_marginLeft="8dp"
-                android:maxLines="1"
-                android:inputType="text"
                 android:background="@drawable/corner_radius"
-                android:padding="4dp" />
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"/>
 
             <TextView
                 android:id="@+id/subject_hours"
@@ -106,23 +107,43 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="@color/colorPrimary"
+                android:singleLine="true"
                 android:layout_marginLeft="8dp"
-                android:maxLines="1"
-                android:inputType="text"
                 android:background="@drawable/corner_radius"
-                android:padding="4dp" />
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/subject_room"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/corner_radius"
-            android:padding="4dp"  />
+
+            <TextView
+                android:id="@+id/subject_teacher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="8dp"
+                android:singleLine="true"
+                android:background="@drawable/corner_radius"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp" />
+
+            <TextView
+                android:id="@+id/subject_room"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginLeft="8dp"
+                android:singleLine="true"
+                android:background="@drawable/corner_radius"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"  />
+
     </LinearLayout>
 
 </LinearLayout>

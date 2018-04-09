@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +17,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +32,7 @@ public class SubjectActivity extends AppCompatActivity implements SubjectInputFr
     FloatingActionButton fab;
     SubjectDatabase sDatabase;
     LinearLayout noSubjectsIcon;
+    CardView subjectListCardview;
     private static final String TAG = "SubjectActivity";
 
     @Override
@@ -123,8 +126,22 @@ public class SubjectActivity extends AppCompatActivity implements SubjectInputFr
         if(adapter.getItemCount() > 0){
             noSubjectsIcon.setVisibility(View.GONE);
         }else{
-
             noSubjectsIcon.setVisibility(View.VISIBLE);
+            /*Set cardview height programmatically
+            create params variable to parse match parent width and height
+            also set margins
+             */
+            subjectListCardview = findViewById(R.id.subjectListCardview);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+
+            //Margin is 12dp but setMargins requires int so we call getDisplayMetrics to set the margin properly
+            int dpValue = 12; // margin in dips
+            float d = this.getResources().getDisplayMetrics().density;
+            int margin = (int)(dpValue * d); // margin in pixels
+            params.setMargins(margin,margin,margin,margin);
+
+            subjectListCardview.setLayoutParams(params);
+
         }
     }
 

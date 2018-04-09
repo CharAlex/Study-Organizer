@@ -3,7 +3,7 @@
     <color name="colorPrimary">#313140</color>
     <color name="colorPrimaryDark">#22222e</color>
 
-    <color name="colorAccent">#ff7e1c</color>
+    <color name="colorAccent">#4ad9bc</color>
     <color name="colorAccentDark">#264C37</color>
 
     <color name="lightGrey">#eeeeee</color>
@@ -11,7 +11,7 @@
     <color name="colorGreenBarDark">#379b67</color>
 
     <color name="rowBlue">#565662</color>
-    <color name="rowBlueLight">#757575</color>
+    <color name="rowBlueLight">#fafafa</color>
 
     <color name="backgroundMain">#e0e0e0</color>
     <color name="backgroundAccent">#f5f5f5</color>
@@ -19,5 +19,12 @@
     <color name="yellowLightDark">#ffc60b</color>
     <color name="white">#ffffff</color>
 
-    <color name="colorInput">#e0e0e0</color>
+    <color name="colorInput">#f5f5f5</color>
+
+    <color name="randomColor1">#ffc60b</color>
+    <color name="randomColor2">#b2d235</color>
+    <color name="randomColor3">#00aeef</color>
+    <color name="randomColor4">#ed1164</color>
+    <color name="randomColor5">#602d91</color>
+
 </resources>
