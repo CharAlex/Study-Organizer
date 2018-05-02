@@ -42,12 +42,12 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.subjectName.setText(subjects.get(position).getSubjectName());
-        holder.subjectType.setText("Τύπος: " +subjects.get(position).getSubjectType());
-        holder.subjectSemester.setText("Εξάμηνο: " +subjects.get(position).getSubjectSemester());
-        holder.subjectTeacher.setText("Καθηγητής: " +subjects.get(position).getSubjectTeacher());
-        holder.subjectPoints.setText("Διδ. Μονάδες: " +String.valueOf(subjects.get(position).getSubjectPoints()));
-        holder.subjectHours.setText("Ώρες διδ.: " +String.valueOf(subjects.get(position).getSubjectHours()));
-        holder.subjectRoom.setText("Αμφιθέατρο/αίθουσα: " +subjects.get(position).getSubjectRoom());
+        holder.subjectType.setText(subjects.get(position).getSubjectType());
+        holder.subjectSemester.setText(subjects.get(position).getSubjectSemester());
+        holder.subjectTeacher.setText(subjects.get(position).getSubjectTeacher());
+        holder.subjectPoints.setText(String.valueOf(subjects.get(position).getSubjectPoints()));
+        holder.subjectHours.setText(String.valueOf(subjects.get(position).getSubjectHours()));
+        holder.subjectRoom.setText(subjects.get(position).getSubjectRoom());
 
         //Create object to pass the info to SubjectActivity class
         TagViewHolder tg = new TagViewHolder(subjects,position,subjects.get(position).getSid());
