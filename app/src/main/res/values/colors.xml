@@ -27,4 +27,6 @@
     <color name="randomColor4">#ed1164</color>
     <color name="randomColor5">#602d91</color>
 
+    <color name="colorSuccess">#8bc34a</color>
+
 </resources>

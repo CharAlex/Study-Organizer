@@ -11,25 +11,70 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import com.example.alexchar.studyorganizer.adapters.MarksAdapter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class PassedMarksFragment extends Fragment {
-    RecyclerView recyclerView;
-    RecyclerView.Adapter adapter;
+    private ExpandableListView expandableListView;
+    private ExpandableListAdapter expandableListAdapter;
+    private List<String> listDataHeader;
+    private HashMap<String,List<String>> listHash;
     SubjectDatabase sDatabase;
     FloatingActionButton floatingActionButton;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.passed_marks_fragment,container,false);
         sDatabase = SubjectDatabase.getSubjectDatabase(getActivity());
+        initData();
         //sDatabase.subjectDao().deleteAll();
-        setRecyclerView(view);
+        setExpandableListView(view);
         floatingButtonAction(view);
         return view;
+    }
+
+    private void initData() {
+        listDataHeader = new ArrayList<>();
+        listHash = new HashMap<>();
+
+        listDataHeader.add("1o Εξάμηνο");
+        listDataHeader.add("2");
+        listDataHeader.add("3");
+        listDataHeader.add("Εξάμηνο");
+
+        List<String> edmtDev = new ArrayList<>();
+        edmtDev.add("Γραφικά 5");
+        edmtDev.add("Προγραμματισμός διαδικτύου 10");
+
+        List<String> androidStudio = new ArrayList<>();
+        androidStudio.add("Expandable ListView");
+        androidStudio.add("Google Map");
+        androidStudio.add("Chat Application");
+        androidStudio.add("Firebase ");
+
+        List<String> xamarin = new ArrayList<>();
+        xamarin.add("Xamarin Expandable ListView");
+        xamarin.add("Xamarin Google Map");
+        xamarin.add("Xamarin Chat Application");
+        xamarin.add("Xamarin Firebase ");
+
+        List<String> uwp = new ArrayList<>();
+        uwp.add("UWP Expandable ListView");
+        uwp.add("UWP Google Map");
+        uwp.add("UWP Chat Application");
+        uwp.add("UWP Firebase ");
+
+        listHash.put(listDataHeader.get(0),edmtDev);
+        listHash.put(listDataHeader.get(1),androidStudio);
+        listHash.put(listDataHeader.get(2),xamarin);
+        listHash.put(listDataHeader.get(3),uwp);
+
     }
 
     private void floatingButtonAction(View view) {
@@ -42,13 +87,13 @@ public class PassedMarksFragment extends Fragment {
         });
     }
 
-    private void setRecyclerView(View view){
+    private void setExpandableListView(View view){
         //Get all the subject from database
         List<Subject> list = sDatabase.subjectDao().getAll();
-        recyclerView = view.findViewById(R.id.passed_marks_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new MarksAdapter(list);
-        recyclerView.setAdapter(adapter);
+        expandableListView =  view.findViewById(R.id.passed_marks_list);
+        expandableListAdapter = new MarksAdapter(list,this.getContext(),listDataHeader,listHash);
+        expandableListView.setAdapter(expandableListAdapter);
+
     }
     private void openFragment(){
         SetMarkFragment fragment = new SetMarkFragment();
