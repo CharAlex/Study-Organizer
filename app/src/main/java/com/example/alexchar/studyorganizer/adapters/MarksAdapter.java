@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.alexchar.studyorganizer.R;
 import com.example.alexchar.studyorganizer.Subject;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -24,15 +25,27 @@ import static android.content.ContentValues.TAG;
 
 public class MarksAdapter extends BaseExpandableListAdapter {
     private Context context;
-    private List<String> listDataHeader;
-    private HashMap<String,List<String>> listHashMap;
+    private List<String> listDataHeader = new ArrayList<>();;
+    private HashMap<String,List<String>> listHashMap = new HashMap<String, List<String>>();
     private List<Subject> subjects;
 
-    public MarksAdapter(List<Subject> subjects, Context context, List<String> listDataHeader, HashMap<String,List<String>> listHashMap){
+    public MarksAdapter(List<Subject> subjects, Context context){
         this.subjects = subjects;
         this.context = context;
-        this.listDataHeader = listDataHeader;
-        this.listHashMap = listHashMap;
+        setData();
+    }
+
+//    Set data from database to expandable list
+    private void setData() {
+        List<Integer> temp = new ArrayList<>();
+        for(Subject i: subjects){
+//                Control to avoid having the same semester more than once
+                if(!temp.contains(Integer.valueOf(i.getSubjectSemester())))
+                    listDataHeader.add(i.getSubjectSemester());
+                temp.add(Integer.valueOf(i.getSubjectSemester()));
+        }
+//        Sort the listDataHeader
+        Collections.sort(listDataHeader);
     }
 
     @Override

@@ -32,7 +32,6 @@ public class PassedMarksFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.passed_marks_fragment,container,false);
         sDatabase = SubjectDatabase.getSubjectDatabase(getActivity());
-        initData();
         //sDatabase.subjectDao().deleteAll();
         setExpandableListView(view);
         floatingButtonAction(view);
@@ -91,7 +90,7 @@ public class PassedMarksFragment extends Fragment {
         //Get all the subject from database
         List<Subject> list = sDatabase.subjectDao().getAll();
         expandableListView =  view.findViewById(R.id.passed_marks_list);
-        expandableListAdapter = new MarksAdapter(list,this.getContext(),listDataHeader,listHash);
+        expandableListAdapter = new MarksAdapter(list,this.getContext());
         expandableListView.setAdapter(expandableListAdapter);
 
     }
