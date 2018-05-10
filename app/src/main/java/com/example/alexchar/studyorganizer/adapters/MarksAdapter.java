@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 import static android.content.ContentValues.TAG;
@@ -37,6 +39,7 @@ public class MarksAdapter extends BaseExpandableListAdapter {
 
 //    Set data from database to expandable list
     private void setData() {
+//      Setting up the listDataHeader
         List<Integer> temp = new ArrayList<>();
         for(Subject i: subjects){
 //                Control to avoid having the same semester more than once
@@ -46,6 +49,31 @@ public class MarksAdapter extends BaseExpandableListAdapter {
         }
 //        Sort the listDataHeader
         Collections.sort(listDataHeader);
+
+//      Setting up the listHashMap
+//        Getting the subjects with the same semester grouped
+        int position = 0;
+//        Hashmap initialize to store the lists(groups) of subjects in same semester. The number of lists that is stored is equal to the number of unique semesters.
+        HashMap<String,List<String>> groupedSemesterList = new HashMap<>();
+        for(int i=1; i <= listDataHeader.size(); i++){
+            groupedSemesterList.put(String.valueOf(i), new ArrayList<String>());
+        }
+
+//        For each semester(distinct) in which the user is enrolled (the array of that semesters is sorted)
+        for(String semester: listDataHeader){
+//            For each subject of all subjects that user is enrolled.
+            for(Subject i: subjects){
+//                Controls if the distinct semester is equal to the semester that is accessed in the nested for loop.
+                if(semester.equals(i.getSubjectSemester())){
+                    Log.d(TAG, "setData: " + String.valueOf(position+1) + groupedSemesterList.get(String.valueOf(position+1)));
+//                    Get the list with the key position + 1 from the HashMap
+                    groupedSemesterList.get(String.valueOf(position+1)).add(i.getSubjectName());
+                }
+            }
+//            Reference the list from the HashMap groupedSemesterList to the HashMap listHashMap
+            listHashMap.put(listDataHeader.get(position),groupedSemesterList.get(String.valueOf(position+1)));
+            position++;
+        }
     }
 
     @Override

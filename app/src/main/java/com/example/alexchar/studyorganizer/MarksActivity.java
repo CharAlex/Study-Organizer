@@ -22,7 +22,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class MarksActivity extends AppCompatActivity {
-
+    FloatingActionButton floatingActionButton;
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
@@ -47,6 +47,9 @@ public class MarksActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tabs);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+//      Floating button setup
+        floatingButtonAction();
     }
 
 
@@ -75,5 +78,22 @@ public class MarksActivity extends AppCompatActivity {
             return 2;
         }
 
+    }
+
+    private void floatingButtonAction() {
+        floatingActionButton = findViewById(R.id.add_mark_flbutton);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openFragment();
+            }
+        });
+    }
+    private void openFragment(){
+//        SetMarkFragment fragment = new SetMarkFragment();
+//        android.app.FragmentManager fragmentManager = getFragmentManager();
+//        android.app.FragmentTransaction transaction = fragmentManager.beginTransaction().add(R.id.mark_fragment_container, fragment, null);
+//        transaction.addToBackStack(null);
+//        transaction.commit();
     }
 }
