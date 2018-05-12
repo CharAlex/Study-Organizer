@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 
 import com.example.alexchar.studyorganizer.adapters.PassedMarksAdapter;
 
@@ -22,7 +23,22 @@ public class PassedMarksFragment extends Fragment {
         sDatabase = SubjectDatabase.getSubjectDatabase(getActivity());
         //sDatabase.subjectDao().deleteAll();
         setExpandableListView(view);
+        setPassedTotal(view);
+
         return view;
+    }
+
+    private void setPassedTotal(View view) {
+        int count = 0;
+        sDatabase = SubjectDatabase.getSubjectDatabase(getContext());
+        List<Subject> subjects = sDatabase.subjectDao().getAll();
+        for(Subject i: subjects){
+            if(i.getSubjectGrade() >= 5 ){
+                count++;
+            }
+        }
+        TextView passed_marks = view.findViewById(R.id.passed_marks_total);
+        passed_marks.setText("Περασμένα: " + count);
     }
 
     private void setExpandableListView(View view){

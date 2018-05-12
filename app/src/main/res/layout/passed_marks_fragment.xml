@@ -20,13 +20,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/passed_marks_total"
                 android:paddingTop="6dp"
                 android:paddingBottom="6dp"
                 android:textSize="18sp"
                 android:textAlignment="center"
                 android:background="@color/colorSuccess"
-                android:textColor="@color/white"
-                android:text="Περασμένα: "/>
+                android:textColor="@color/white"/>
 
             <ExpandableListView
                 android:id="@+id/passed_marks_list"
