@@ -191,8 +191,7 @@ public class SubjectInputFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SubjectActivity subjectActivity = (SubjectActivity) getActivity();
-                subjectActivity.onBackPressed();
+                getActivity().onBackPressed();
 
             }
         });

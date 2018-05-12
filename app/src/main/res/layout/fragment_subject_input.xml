@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            //This next section is re-used in another activity so i create separate file and include it here
+            <!--This next section is re-used in another activity so i create separate file and include it here-->
             <include layout="@layout/input_layout" />
 
             <!--Buttons Cancel and Submit!-->

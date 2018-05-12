@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -26,16 +26,18 @@
                 android:textAlignment="center"
                 android:background="@color/colorSuccess"
                 android:textColor="@color/white"
-                android:text="Εξάμηνα"/>
+                android:text="Περασμένα: "/>
 
             <ExpandableListView
                 android:id="@+id/passed_marks_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:divider="@color/backgroundAccent">
+                android:divider="#eee"
+                android:dividerHeight="1dp"
+                android:childDivider="@color/white">
             </ExpandableListView>
 
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
-</LinearLayout>
+</FrameLayout>

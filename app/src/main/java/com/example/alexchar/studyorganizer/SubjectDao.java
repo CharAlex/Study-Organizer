@@ -35,5 +35,8 @@ public interface SubjectDao {
             " WHERE sid = :id")
     void  update(String subjectName, String subjectType, String subjectSemester, String subjectTeacher, String subjectPoints, String subjectHours, String subjectRoom, int id);
 
+    @Query("UPDATE subject SET subject_grade = :subjectGrade" +
+            " WHERE sid = :id")
+    void  updateGrade(int subjectGrade, int id);
 
 }

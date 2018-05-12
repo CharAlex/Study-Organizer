@@ -19,12 +19,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class MarksActivity extends AppCompatActivity {
     FloatingActionButton floatingActionButton;
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
+    private PassedMarksFragment tab1;
+    private FailedMarksFragment tab2;
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -63,10 +66,10 @@ public class MarksActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position){
                 case 0:
-                    PassedMarksFragment tab1 = new PassedMarksFragment();
+                    tab1 = new PassedMarksFragment();
                     return tab1;
                 case 1:
-                    FailedMarksFragment tab2 = new FailedMarksFragment();
+                    tab2 = new FailedMarksFragment();
                     return tab2;
                 default: return null;
             }
@@ -90,10 +93,21 @@ public class MarksActivity extends AppCompatActivity {
         });
     }
     private void openFragment(){
-//        SetMarkFragment fragment = new SetMarkFragment();
-//        android.app.FragmentManager fragmentManager = getFragmentManager();
-//        android.app.FragmentTransaction transaction = fragmentManager.beginTransaction().add(R.id.mark_fragment_container, fragment, null);
-//        transaction.addToBackStack(null);
-//        transaction.commit();
+        SetMarkFragment fragment = new SetMarkFragment();
+        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+
+        /*add_mark_container is the container that is below the viewpager in the xml file so it will
+         appear on top of both tabs when fragment is opened*/
+        android.support.v4.app.FragmentTransaction transaction = fragmentManager.beginTransaction().add(R.id.add_mark_container, fragment, null);
+        transaction.addToBackStack(null);
+        transaction.commit();
+        floatingActionButton.setVisibility(View.GONE);
+
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        FloatingActionButton floatingActionButton = findViewById(R.id.add_mark_flbutton);
+        floatingActionButton.setVisibility(View.VISIBLE);
     }
 }
