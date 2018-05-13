@@ -20,30 +20,30 @@ import java.util.List;
 import static android.content.ContentValues.TAG;
 
 
-public class PassedMarksAdapter extends BaseExpandableListAdapter {
+public class FailedMarksAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<Integer> listDataHeader = new ArrayList<>();;
     private HashMap<Integer,List<String>> listHashMap = new HashMap<>();
     private List<Subject> subjects;
     private int gradeFlag = 0;
-//    ToDo make the minimumGrade as an input for the user
+    //    ToDo make the minimumGrade as an input for the user
     private int minimumGrade = 5;
 
-    public PassedMarksAdapter(List<Subject> subjects, Context context){
+    public FailedMarksAdapter(List<Subject> subjects, Context context){
         this.subjects = subjects;
         this.context = context;
         setData();
     }
 
-//    Set data from database to expandable list
+    //    Set data from database to expandable list
     private void setData() {
 //      Setting up the listDataHeader
         List<Integer> temp = new ArrayList<>();
         for(Subject i: subjects){
-            if(i.getSubjectGrade() >= 5){
+            if(i.getSubjectGrade() < minimumGrade){
 //                Control to avoid having the same semester more than once
                 if(!temp.contains(Integer.valueOf(i.getSubjectSemester())))
-                listDataHeader.add(Integer.valueOf(i.getSubjectSemester()));
+                    listDataHeader.add(Integer.valueOf(i.getSubjectSemester()));
                 temp.add(Integer.valueOf(i.getSubjectSemester()));
             }
         }
@@ -64,7 +64,7 @@ public class PassedMarksAdapter extends BaseExpandableListAdapter {
 //            For each subject of all subjects that user is enrolled.
             for(Subject i: subjects){
 //                Controls if the distinct semester is equal to the semester that is accessed in the nested for loop.
-                if(semester.equals(Integer.valueOf(i.getSubjectSemester())) && i.getSubjectGrade() >= minimumGrade){
+                if(semester.equals(Integer.valueOf(i.getSubjectSemester())) && i.getSubjectGrade() < minimumGrade){
                     Log.d(TAG, "setData: " + String.valueOf(position+1) + groupedSemesterList.get(String.valueOf(position+1)));
 //                    Get the list with the key position + 1 from the HashMap
                     groupedSemesterList.get(String.valueOf(position+1)).add(i.getSubjectName() + ": " + i.getSubjectGrade());
@@ -129,7 +129,7 @@ public class PassedMarksAdapter extends BaseExpandableListAdapter {
         final String child = (String) getChild(i,i1);
         if(view == null){
             LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.passed_mark_list_item,null);
+            view = inflater.inflate(R.layout.failed_mark_list_item,null);
         }
         TextView listChild =  view.findViewById(R.id.subject_name);
         listChild.setText(child);

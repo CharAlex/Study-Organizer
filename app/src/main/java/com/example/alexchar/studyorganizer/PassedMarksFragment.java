@@ -19,7 +19,7 @@ public class PassedMarksFragment extends Fragment {
     SubjectDatabase sDatabase;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.passed_marks_fragment,container,false);
+        View view = inflater.inflate(R.layout.marks_fragment,container,false);
         sDatabase = SubjectDatabase.getSubjectDatabase(getActivity());
         //sDatabase.subjectDao().deleteAll();
         setExpandableListView(view);
@@ -37,14 +37,14 @@ public class PassedMarksFragment extends Fragment {
                 count++;
             }
         }
-        TextView passed_marks = view.findViewById(R.id.passed_marks_total);
+        TextView passed_marks = view.findViewById(R.id.marks_total);
         passed_marks.setText("Περασμένα: " + count);
     }
 
     private void setExpandableListView(View view){
         //Get all the subject from database
         List<Subject> list = sDatabase.subjectDao().getAll();
-        expandableListView =  view.findViewById(R.id.passed_marks_list);
+        expandableListView =  view.findViewById(R.id.marks_list);
         expandableListAdapter = new PassedMarksAdapter(list,this.getContext());
         expandableListView.setAdapter(expandableListAdapter);
 

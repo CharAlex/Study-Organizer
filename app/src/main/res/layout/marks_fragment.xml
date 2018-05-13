@@ -20,7 +20,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/passed_marks_total"
+                android:id="@+id/marks_total"
                 android:paddingTop="6dp"
                 android:paddingBottom="6dp"
                 android:textSize="18sp"
@@ -29,7 +29,7 @@
                 android:textColor="@color/white"/>
 
             <ExpandableListView
-                android:id="@+id/passed_marks_list"
+                android:id="@+id/marks_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:divider="#eee"
