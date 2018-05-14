@@ -8,7 +8,7 @@
     android:background="@color/backgroundMain"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:id="@+id/subject_container"
-    tools:context="com.example.alexchar.studyorganizer.SubjectActivity"
+    tools:context="com.example.alexchar.studyorganizer.activities.SubjectActivity"
     >
     <LinearLayout
         android:layout_width="match_parent"

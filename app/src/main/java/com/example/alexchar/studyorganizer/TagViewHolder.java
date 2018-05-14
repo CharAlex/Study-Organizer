@@ -1,5 +1,7 @@
 package com.example.alexchar.studyorganizer;
 
+import com.example.alexchar.studyorganizer.entities.Subject;
+
 import java.util.List;
 //A class to parse subject list, position, id from activity to fragment
 public class TagViewHolder {

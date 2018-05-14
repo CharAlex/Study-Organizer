@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.alexchar.studyorganizer.EditSubject;
+import com.example.alexchar.studyorganizer.activities.EditSubjectActivity;
 import com.example.alexchar.studyorganizer.R;
-import com.example.alexchar.studyorganizer.Subject;
+import com.example.alexchar.studyorganizer.entities.Subject;
 import com.example.alexchar.studyorganizer.TagViewHolder;
 
 import java.util.List;
@@ -75,7 +75,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Start new EditSubject activity
+                //Start new EditSubjectActivity activity
                 parseSubjectId(holder.getAdapterPosition());
             }
         });
@@ -113,9 +113,9 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
     public void parseSubjectId(int position){
         //parse this id to next activity
         int subjectId = subjects.get(position).getSid();
-        Intent intent = new Intent(context,EditSubject.class);
+        Intent intent = new Intent(context,EditSubjectActivity.class);
         intent.putExtra("subject id", subjectId);
-        //Start the new EditSubject Activity
+        //Start the new EditSubjectActivity Activity
         context.startActivity(intent);
     }
 

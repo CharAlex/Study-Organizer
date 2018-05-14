@@ -1,4 +1,4 @@
-package com.example.alexchar.studyorganizer;
+package com.example.alexchar.studyorganizer.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +9,9 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
+import com.example.alexchar.studyorganizer.R;
+import com.example.alexchar.studyorganizer.SubjectDatabase;
+import com.example.alexchar.studyorganizer.entities.Subject;
 import com.example.alexchar.studyorganizer.adapters.PassedMarksAdapter;
 
 import java.util.List;

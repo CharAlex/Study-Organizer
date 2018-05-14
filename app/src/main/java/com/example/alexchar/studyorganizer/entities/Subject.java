@@ -1,4 +1,4 @@
-package com.example.alexchar.studyorganizer;
+package com.example.alexchar.studyorganizer.entities;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;

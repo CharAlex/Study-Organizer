@@ -10,7 +10,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.example.alexchar.studyorganizer.R;
-import com.example.alexchar.studyorganizer.Subject;
+import com.example.alexchar.studyorganizer.entities.Subject;
 
 import java.util.ArrayList;
 import java.util.Collections;

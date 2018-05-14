@@ -7,7 +7,7 @@
     android:background="#FFF"
     android:elevation="8dp"
     app:cardUseCompatPadding="true"
-    tools:context="com.example.alexchar.studyorganizer.SubjectInputFragment">
+    tools:context="com.example.alexchar.studyorganizer.fragments.SubjectInputFragment">
 
     <ScrollView
         android:layout_width="match_parent"

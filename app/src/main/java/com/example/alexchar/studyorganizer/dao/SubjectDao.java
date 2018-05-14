@@ -1,9 +1,11 @@
-package com.example.alexchar.studyorganizer;
+package com.example.alexchar.studyorganizer.dao;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+
+import com.example.alexchar.studyorganizer.entities.Subject;
 
 import java.util.List;
 
@@ -22,7 +24,7 @@ public interface SubjectDao {
     int countSubjects();
 
     @Insert
-    void insertAll(Subject... subjects);
+    void insertAll(Subject... subject);
 
     @Delete
     void delete(Subject subject);

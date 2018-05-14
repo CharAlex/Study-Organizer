@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_close_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/device/ic_access_time_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,9 +28,13 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="484848" />
-                            <entry key="outputName" value="ic_close_black_24dp" />
-                            <entry key="sourceFile" value="C:\Users\Alex\Desktop\subject_row_icons\add_white.svg" />
+                            <entry key="height" value="18" />
+                            <entry key="outputName" value="ic_baseline_calendar_today_18px" />
+                            <entry key="overrideSize" value="true" />
+                            <entry key="sourceFile" value="C:\Users\Alex\Desktop\subject_row_icons\baseline-calendar_today-24px.svg" />
+                            <entry key="width" value="18" />
                           </map>
                         </option>
                       </PersistentState>

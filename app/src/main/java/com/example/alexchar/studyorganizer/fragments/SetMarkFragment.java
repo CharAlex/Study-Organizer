@@ -1,11 +1,8 @@
-package com.example.alexchar.studyorganizer;
+package com.example.alexchar.studyorganizer.fragments;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,8 +19,12 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.Toast;
 
+import com.example.alexchar.studyorganizer.activities.MarkActivity;
+import com.example.alexchar.studyorganizer.R;
+import com.example.alexchar.studyorganizer.SubjectDatabase;
+import com.example.alexchar.studyorganizer.entities.Subject;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
@@ -64,7 +65,7 @@ public class SetMarkFragment extends Fragment {
             public void onClick(View view) {
                 if(!autoCompleteTextView.getText().toString().equals("") && !grade_input.getText().toString().equals("")){
                     sDatabase.subjectDao().updateGrade(Integer.valueOf(grade_input.getText().toString()),selectedSubjectId);
-                    Intent intent = new Intent(getActivity(), MarksActivity.class);
+                    Intent intent = new Intent(getActivity(), MarkActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
                     startActivity(intent);
                     Toast.makeText(getActivity(), "Ο βαθμός προστέθηκε!", Toast.LENGTH_LONG).show();

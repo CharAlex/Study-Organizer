@@ -1,4 +1,4 @@
-package com.example.alexchar.studyorganizer;
+package com.example.alexchar.studyorganizer.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,7 +13,11 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class EditSubject extends AppCompatActivity {
+import com.example.alexchar.studyorganizer.R;
+import com.example.alexchar.studyorganizer.SubjectDatabase;
+import com.example.alexchar.studyorganizer.entities.Subject;
+
+public class EditSubjectActivity extends AppCompatActivity {
     SubjectDatabase sDatabase;
     int id_parsed;
     TextView greenTitle;
@@ -22,7 +26,7 @@ public class EditSubject extends AppCompatActivity {
     Button cancelButton, deleteButton, saveButton;
     SeekBar seekBar;
     Subject retrievedSubject;
-    private static final String TAG = "EditSubject";
+    private static final String TAG = "EditSubjectActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +78,7 @@ public class EditSubject extends AppCompatActivity {
                     }
                     sDatabase.subjectDao().update(subjectName.getText().toString(), radio, seekBarText.getText().toString(), subjectTeacher.getText().toString(),
                             subjectPoints.getText().toString(),subjectHours.getText().toString(), subjectRoom.getText().toString(), retrievedSubject.getSid());
-                    Intent intent = new Intent(EditSubject.this, SubjectActivity.class);
+                    Intent intent = new Intent(EditSubjectActivity.this, SubjectActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
                     startActivity(intent);
                     Toast.makeText(getApplicationContext(), "Οι αλλαγές αποθηκεύτηκαν!", Toast.LENGTH_LONG).show();
@@ -83,9 +87,9 @@ public class EditSubject extends AppCompatActivity {
                     //If user removes name completely
                     AlertDialog.Builder builder;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        builder = new AlertDialog.Builder(EditSubject.this, android.R.style.Theme_Material_Dialog_Alert);
+                        builder = new AlertDialog.Builder(EditSubjectActivity.this, android.R.style.Theme_Material_Dialog_Alert);
                     } else {
-                        builder = new AlertDialog.Builder(EditSubject.this);
+                        builder = new AlertDialog.Builder(EditSubjectActivity.this);
                     }
                     builder.setTitle("Προσθέστε Μάθημα")
                             .setMessage("Το πεδίο με το όνομα του μαθήματος δεν μπορεί να είναι κενό.")
@@ -107,15 +111,15 @@ public class EditSubject extends AppCompatActivity {
             public void onClick(View view) {
                 AlertDialog.Builder builder;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    builder = new AlertDialog.Builder(EditSubject.this, android.R.style.Theme_Material_Dialog_Alert);
+                    builder = new AlertDialog.Builder(EditSubjectActivity.this, android.R.style.Theme_Material_Dialog_Alert);
                 } else {
-                    builder = new AlertDialog.Builder(EditSubject.this);
+                    builder = new AlertDialog.Builder(EditSubjectActivity.this);
                 }
                 builder.setTitle("Θέλετε σίγουρα να διαγράψετε το μάθημα " + retrievedSubject.getSubjectName())
                         .setPositiveButton("Ναι", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 sDatabase.subjectDao().delete(retrievedSubject);
-                                Intent intent = new Intent(EditSubject.this, SubjectActivity.class);
+                                Intent intent = new Intent(EditSubjectActivity.this, SubjectActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
                                 startActivity(intent);
                                 Toast.makeText(getApplicationContext(), "Το μάθημα διαγράφηκε!", Toast.LENGTH_LONG).show();

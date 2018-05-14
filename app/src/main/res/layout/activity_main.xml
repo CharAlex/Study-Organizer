@@ -11,7 +11,7 @@
         android:background="@color/backgroundMain"
         android:orientation="vertical"
         android:visibility="visible"
-        tools:context="com.example.alexchar.studyorganizer.MainActivity">
+        tools:context="com.example.alexchar.studyorganizer.activities.MainActivity">
 
         <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
@@ -188,7 +188,7 @@
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             android:layout_margin="16dp"
-                            android:src="@drawable/ic_subject_icon" />
+                            app:srcCompat="@drawable/ic_subject_icon" />
                     </android.support.v7.widget.CardView>
 
                     <TextView
@@ -207,6 +207,7 @@
                     android:orientation="vertical">
 
                     <android.support.v7.widget.CardView
+                        android:id="@+id/todo_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
@@ -290,6 +291,7 @@
                     android:orientation="vertical">
 
                     <android.support.v7.widget.CardView
+                        android:id="@+id/exam_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
@@ -308,7 +310,7 @@
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             android:layout_margin="16dp"
-                            android:src="@drawable/ic_exams_icon" />
+                            app:srcCompat="@drawable/ic_exams_icon" />
                     </android.support.v7.widget.CardView>
 
                     <TextView

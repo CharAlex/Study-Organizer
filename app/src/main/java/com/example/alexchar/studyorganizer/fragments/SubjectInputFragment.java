@@ -1,4 +1,4 @@
-package com.example.alexchar.studyorganizer;
+package com.example.alexchar.studyorganizer.fragments;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -17,6 +17,11 @@ import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.alexchar.studyorganizer.R;
+import com.example.alexchar.studyorganizer.activities.SubjectActivity;
+import com.example.alexchar.studyorganizer.SubjectDatabase;
+import com.example.alexchar.studyorganizer.entities.Subject;
 
 public class SubjectInputFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match

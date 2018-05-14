@@ -1,4 +1,4 @@
-package com.example.alexchar.studyorganizer;
+package com.example.alexchar.studyorganizer.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -21,7 +21,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.alexchar.studyorganizer.R;
+import com.example.alexchar.studyorganizer.SubjectDatabase;
+import com.example.alexchar.studyorganizer.TagViewHolder;
+import com.example.alexchar.studyorganizer.entities.Subject;
 import com.example.alexchar.studyorganizer.adapters.SubjectAdapter;
+import com.example.alexchar.studyorganizer.fragments.SubjectInputFragment;
 
 import java.util.List;
 

@@ -1,12 +1,12 @@
 package com.example.alexchar.studyorganizer;
 
-import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
-import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
-import android.support.annotation.NonNull;
+
+import com.example.alexchar.studyorganizer.dao.SubjectDao;
+import com.example.alexchar.studyorganizer.entities.Subject;
 
 @Database(entities = {Subject.class}, version = 3)
 public abstract class SubjectDatabase extends RoomDatabase {

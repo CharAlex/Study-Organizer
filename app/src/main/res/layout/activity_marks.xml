@@ -9,7 +9,7 @@
     android:fitsSystemWindows="true"
     android:background="@color/backgroundMain"
     android:orientation="vertical"
-    tools:context="com.example.alexchar.studyorganizer.MarksActivity">
+    tools:context="com.example.alexchar.studyorganizer.activities.MarkActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"

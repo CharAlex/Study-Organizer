@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,14 +17,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SubjectActivity"
+            android:name=".activities.SubjectActivity"
             android:label="@string/title_activity_subject"
             android:theme="@style/AppTheme" />
-        <activity android:name=".EditSubject" />
+        <activity android:name=".activities.EditSubjectActivity" />
         <activity
-            android:name=".MarksActivity"
+            android:name=".activities.MarkActivity"
             android:label="@string/title_activity_marks"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activities.TaskActivity"></activity>
     </application>
 
 </manifest>
