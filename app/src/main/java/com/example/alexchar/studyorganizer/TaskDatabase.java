@@ -9,7 +9,7 @@ import android.content.Context;
 import com.example.alexchar.studyorganizer.dao.TaskDao;
 import com.example.alexchar.studyorganizer.entities.Task;
 
-@Database(entities = {Task.class},version = 1)
+@Database(entities = {Task.class},version = 2)
 public abstract class TaskDatabase extends RoomDatabase {
     private static TaskDatabase INSTANCE;
     public abstract TaskDao taskDao();

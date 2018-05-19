@@ -14,19 +14,34 @@ public class Task {
     private String taskName;
     @ColumnInfo(name = "subject_id")
     private int subjectId;
-    @ColumnInfo(name = "task_due_date")
-    private String  dueDate;
-    @ColumnInfo(name = "task_due_time")
-    private String dueTime;
+    @ColumnInfo(name = "task_due_year")
+    private int taskDueYear;
+    @ColumnInfo(name = "task_due_month")
+    private int taskDueMonth;
+    @ColumnInfo(name = "task_due_day")
+    private int taskDueDay;
+    @ColumnInfo(name = "task_due_hour")
+    private int taskDueHour;
+    @ColumnInfo(name = "task_due_minute")
+    private int taskDueMinute;
     @ColumnInfo(name = "task_notes")
     private String taskNotes;
+    @ColumnInfo(name = "task_done")
+    private boolean taskDone;
 
-    public Task(String taskName, int subjectId, String dueDate, String dueTime, String taskNotes) {
+    public Task() {
+    }
+
+    public Task(String taskName, int subjectId, int taskDueYear, int taskDueMonth, int taskDueDay, int taskDueHour, int taskDueMinute, String taskNotes, boolean taskDone) {
         this.taskName = taskName;
         this.subjectId = subjectId;
-        this.dueDate = dueDate;
-        this.dueTime = dueTime;
+        this.taskDueYear = taskDueYear;
+        this.taskDueMonth = taskDueMonth;
+        this.taskDueDay = taskDueDay;
+        this.taskDueHour = taskDueHour;
+        this.taskDueMinute = taskDueMinute;
         this.taskNotes = taskNotes;
+        this.taskDone = taskDone;
     }
 
     public int getTid() {
@@ -53,20 +68,44 @@ public class Task {
         this.subjectId = subjectId;
     }
 
-    public String getDueDate() {
-        return dueDate;
+    public int getTaskDueYear() {
+        return taskDueYear;
     }
 
-    public void setDueDate(String dueDate) {
-        this.dueDate = dueDate;
+    public void setTaskDueYear(int taskDueYear) {
+        this.taskDueYear = taskDueYear;
     }
 
-    public String getDueTime() {
-        return dueTime;
+    public int getTaskDueMonth() {
+        return taskDueMonth;
     }
 
-    public void setDueTime(String dueTime) {
-        this.dueTime = dueTime;
+    public void setTaskDueMonth(int taskDueMonth) {
+        this.taskDueMonth = taskDueMonth;
+    }
+
+    public int getTaskDueDay() {
+        return taskDueDay;
+    }
+
+    public void setTaskDueDay(int taskDueDay) {
+        this.taskDueDay = taskDueDay;
+    }
+
+    public int getTaskDueHour() {
+        return taskDueHour;
+    }
+
+    public void setTaskDueHour(int taskDueHour) {
+        this.taskDueHour = taskDueHour;
+    }
+
+    public int getTaskDueMinute() {
+        return taskDueMinute;
+    }
+
+    public void setTaskDueMinute(int taskDueMinute) {
+        this.taskDueMinute = taskDueMinute;
     }
 
     public String getTaskNotes() {
@@ -75,5 +114,13 @@ public class Task {
 
     public void setTaskNotes(String taskNotes) {
         this.taskNotes = taskNotes;
+    }
+
+    public boolean getTaskDone() {
+        return taskDone;
+    }
+
+    public void setTaskDone(boolean taskDone) {
+        this.taskDone = taskDone;
     }
 }

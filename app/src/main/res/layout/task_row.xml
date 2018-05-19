@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:padding="8dp">
+
+    <!--Task title and the checkbox-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:singleLine="true"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:background="@drawable/corner_radius"
+            android:layout_marginLeft="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:id="@+id/task_title"/>
+        <CheckBox
+            android:id="@+id/check_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:layout_alignBottom="@id/task_title"
+            android:layout_alignTop="@+id/task_title"
+            android:layout_alignRight="@+id/task_title"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/backgroundMain"/>
+
+    <!--First two columns-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp"
+        >
+        <TextView
+            android:id="@+id/task_date"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="01/01/18"
+            android:textSize="14sp"
+            android:textColor="@color/colorPrimary"
+            android:singleLine="true"
+            android:background="@drawable/corner_radius"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:drawableLeft="@drawable/ic_baseline_calendar_today_18px"
+            android:drawablePadding="8dp"/>
+
+        <TextView
+            android:text="15:15"
+            android:id="@+id/task_time"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:drawablePadding="8dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginLeft="8dp"
+            android:textSize="14sp"
+            android:singleLine="true"
+            android:background="@drawable/corner_radius"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:drawableLeft="@drawable/ic_access_time_black_24dp"/>
+    </LinearLayout>
+
+
+</LinearLayout>

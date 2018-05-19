@@ -34,9 +34,12 @@ public interface TaskDao {
     @Query("DELETE FROM task")
     void deleteAll();
 
-    @Query("UPDATE task SET task_name = :taskName, subject_id = :subjectId, task_due_date = :dueDate, " +
-            "task_due_time = :dueTime, task_notes = :taskNotes" +
+    @Query("UPDATE task SET task_name = :taskName, subject_id = :subjectId, task_due_year = :taskDueYear, " +
+            "task_due_month = :taskDueMonth, task_due_day = :taskDueDay, task_due_hour = :taskDueHour, task_due_minute = :taskDueMinute, task_notes = :taskNotes" +
             " WHERE tid = :id")
-    void  update(String taskName, int subjectId, String dueDate, String dueTime, String taskNotes, int id);
+    void  update(String taskName, int subjectId, int taskDueYear, int taskDueMonth, int taskDueDay, int taskDueHour, int taskDueMinute, String taskNotes, int id);
+
+    @Query("UPDATE task SET task_done = :taskDone WHERE tid = :id")
+    void  updateCheck(int id, boolean taskDone);
 
 }
