@@ -98,7 +98,8 @@ public class setTaskFragment extends Fragment {
 //                        Print the real month and not the index of it
                         month++;
                         datepicker = viewFragment.findViewById(R.id.datepicker_button);
-                        datepicker.setText(day + "/" + month + "/" + year);
+                        String setDate = ((day) < 10 ? "0" : "") + day + "/" + ((month) < 10 ? "0" : "") + month + "/" + ((year) < 10 ? "0" : "") + year;
+                        datepicker.setText(setDate);
 //                        Only if the date is set then enable timepicker_button
                         timepicker.setEnabled(true);
                     }
@@ -118,7 +119,8 @@ public class setTaskFragment extends Fragment {
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                         task.setTaskDueHour(hour);
                         task.setTaskDueMinute(minute);
-                        timepicker.setText(hour + ":" + minute);
+                        String setTime = ((hour) < 10 ? "0" : "") + hour + ":" + ((minute) < 10 ? "0" : "") + minute;
+                        timepicker.setText(setTime);
                     }
                 }, hour, minute, true);
                 timePickerDialog.show();

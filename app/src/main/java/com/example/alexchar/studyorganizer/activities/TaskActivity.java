@@ -1,18 +1,24 @@
 package com.example.alexchar.studyorganizer.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Paint;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.alexchar.studyorganizer.R;
+import com.example.alexchar.studyorganizer.TagViewHolder;
 import com.example.alexchar.studyorganizer.TaskDatabase;
 import com.example.alexchar.studyorganizer.adapters.TaskAdapter;
 import com.example.alexchar.studyorganizer.entities.Task;
@@ -24,8 +30,9 @@ import java.util.List;
 public class TaskActivity extends AppCompatActivity {
     private FloatingActionButton addTaskButton;
     private RecyclerView recyclerView;
-    private ArrayAdapter arrayAdapter;
+    private TaskAdapter taskAdapter;
     private TaskDatabase tDatabase;
+    private LinearLayout noTaskIcon;
     private String TAG = "TaskActivity";
 
     @Override
@@ -34,6 +41,9 @@ public class TaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_task);
         setRecyclerView();
         setAddTaskButton();
+        //Add swipe-delete feature
+        swipeToDelete();
+        setNoSubjectIcon();
     }
 
 
@@ -42,7 +52,7 @@ public class TaskActivity extends AppCompatActivity {
         List<Task> tasks = tDatabase.taskDao().getAll();
         recyclerView = findViewById(R.id.task_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        final TaskAdapter taskAdapter = new TaskAdapter(tasks);
+        taskAdapter = new TaskAdapter(tasks);
         recyclerView.setAdapter(taskAdapter);
     }
 
@@ -71,5 +81,52 @@ public class TaskActivity extends AppCompatActivity {
         addTaskButton.setVisibility(View.VISIBLE);
     }
 
+    private void swipeToDelete() {
+        //Drag and Drop items feature
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
 
+            @Override
+            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction) {
+                final int position = viewHolder.getAdapterPosition();
+                AlertDialog.Builder builder = new AlertDialog.Builder(TaskActivity.this);
+                builder.setMessage("Θέλετε σίγουρα να διαγράψετε το task;");
+                builder.setPositiveButton("Διαγραφή", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        List<Task> tasks = taskAdapter.getTasks();
+                        int taskId = tasks.get(position).getTid();
+                        taskAdapter.notifyItemRemoved(position);
+                        //Remove item from database too
+                        Task task = tDatabase.taskDao().findById(taskId);
+                        tDatabase.taskDao().delete(task);
+                        //Delete subject from list
+                        tasks.remove(position);
+                        taskAdapter.notifyItemRangeChanged(position,tasks.size());
+                        setNoSubjectIcon();
+                    }
+                }).setNegativeButton("ΟΧΙ", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        taskAdapter.notifyItemRemoved(position+1);
+                        taskAdapter.notifyItemRangeChanged(position,taskAdapter.getItemCount());
+                        return;
+                    }
+                }).show();
+
+            }
+        }).attachToRecyclerView(recyclerView);
+    }
+
+    private void setNoSubjectIcon() {
+        noTaskIcon = findViewById(R.id.no_tasks_icon);
+        if(taskAdapter.getItemCount() > 0){
+            noTaskIcon.setVisibility(View.GONE);
+        }else{
+            noTaskIcon.setVisibility(View.VISIBLE);
+        }
+    }
 }

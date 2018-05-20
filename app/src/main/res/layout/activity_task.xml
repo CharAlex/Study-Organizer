@@ -39,8 +39,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/toolbar"
-                android:background="@color/white">
-            </android.support.v7.widget.RecyclerView>
+                android:background="@color/white"/>
+                <!--Show this icon and text when no subjects are added!-->
+                <LinearLayout
+                    android:id="@+id/no_tasks_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="8dp"
+                    app:srcCompat="@drawable/ic_null_todo_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Δεν έχουν προστεθεί \ntasks."
+                    android:textAlignment="center"
+                    android:textColor="#3a3a3a" />
+                </LinearLayout>
         </android.support.v7.widget.CardView>
     </LinearLayout>
 

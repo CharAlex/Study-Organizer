@@ -1,27 +1,35 @@
 package com.example.alexchar.studyorganizer.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.alexchar.studyorganizer.R;
 import com.example.alexchar.studyorganizer.TaskDatabase;
+import com.example.alexchar.studyorganizer.activities.TaskActivity;
 import com.example.alexchar.studyorganizer.entities.Task;
+import com.example.alexchar.studyorganizer.fragments.TaskInfoFragment;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Timer;
 
 import static android.content.ContentValues.TAG;
 
-public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>   {
+public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     private List<Task> tasks;
     private Context context;
@@ -30,13 +38,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>   
     public TaskAdapter(List<Task> tasks) {
         this.tasks = tasks;
 //        Sort the tasks list so the checked tasks would appear on the bottom
-            sortBooleanTypeList(tasks);
+        sortBooleanTypeList(tasks);
 
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_row,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_row, parent, false);
         context = parent.getContext();
         tDatabase = TaskDatabase.getTaskDatabase(context);
         return new ViewHolder(view);
@@ -44,39 +52,104 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>   
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
+        //Change background color for every 2nd item
+        if (position % 2 == 0) {
+            holder.rootView.setBackgroundResource(R.color.rowBlueLight);
+        }
+
         holder.taskTitle.setText(tasks.get(position).getTaskName());
+        if (tasks.get(holder.getAdapterPosition()).getTaskDueDay() != 0) {
+//            Call method to conver 1 to 01 etc
+            List<String> formatedDateAndTime = setDateAndTimeFormat(position);
+            holder.taskDate.setText(formatedDateAndTime.get(0) + "/" + formatedDateAndTime.get(1) + "/" + tasks.get(position).getTaskDueYear());
+            holder.taskTime.setText(formatedDateAndTime.get(3) + ":" + formatedDateAndTime.get(2));
+            holder.taskDate.setVisibility(View.VISIBLE);
+            holder.taskTime.setVisibility(View.VISIBLE);
+            holder.divider.setVisibility(View.VISIBLE);
+        } else {
+            holder.taskDate.setVisibility(View.GONE);
+            holder.taskTime.setVisibility(View.GONE);
+            holder.divider.setVisibility(View.GONE);
+        }
+
 
 //        Check if the checkbox is true then make text strike through
         holder.checkBox.setChecked(tasks.get(position).getTaskDone());
-        if(holder.checkBox.isChecked()){
+        if (holder.checkBox.isChecked()) {
             holder.taskTitle.setPaintFlags(holder.taskTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             holder.taskTitle.setTextColor(context.getResources().getColor(R.color.darkGrey));
-        }else{
+        } else {
             holder.taskTitle.setPaintFlags(0);
             holder.taskTitle.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+
         }
+        sortBooleanTypeList(tasks);
 
 //        OnClick add the corresponding value to variable taskDone to database
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(holder.checkBox.isChecked()){
+
+                if (holder.checkBox.isChecked()) {
                     holder.taskTitle.setPaintFlags(holder.taskTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     holder.taskTitle.setTextColor(context.getResources().getColor(R.color.darkGrey));
-                    tDatabase.taskDao().updateCheck(tasks.get(position).getTid(),true);
+                    tDatabase.taskDao().updateCheck(tasks.get(position).getTid(), true);
 
-                }else{
+                } else {
                     holder.taskTitle.setPaintFlags(0);
                     holder.taskTitle.setTextColor(context.getResources().getColor(R.color.colorPrimary));
-                    tDatabase.taskDao().updateCheck(tasks.get(position).getTid(),false);
+                    tDatabase.taskDao().updateCheck(tasks.get(position).getTid(), false);
                 }
 //                NotifyDataSetChanged when the user presses any checkbox
                 tasks.clear();
                 tasks = tDatabase.taskDao().getAll();
                 sortBooleanTypeList(tasks);
                 notifyDataSetChanged();
+
             }
         });
+
+
+        //Make click listener to each row item
+        holder.itemView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP || motionEvent.getAction() == MotionEvent.ACTION_CANCEL) {
+                    TaskActivity taskActivity = (TaskActivity) context;
+                    taskActivity.onBackPressed();
+                    return false;
+                }
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN && motionEvent.getAction() != MotionEvent.ACTION_CANCEL) {
+                    //Start new TaskInfo Fragment
+                    parseTaskId(holder.getAdapterPosition());
+                    return true;
+                }
+                return true;
+            }
+        });
+    }
+
+    private void parseTaskId(int adapterPosition) {
+        int taskId = tasks.get(adapterPosition).getTid();
+        Bundle bundle = new Bundle();
+        bundle.putInt("taskId", taskId);
+        TaskActivity taskActivity = (TaskActivity) context;
+        TaskInfoFragment fragment = new TaskInfoFragment();
+        fragment.setArguments(bundle);
+        taskActivity.getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    private List<String> setDateAndTimeFormat(int position) {
+        String day = (tasks.get(position).getTaskDueDay() < 10 ? "0" : "") + tasks.get(position).getTaskDueDay();
+        String month = (tasks.get(position).getTaskDueMonth() < 10 ? "0" : "") + tasks.get(position).getTaskDueMonth();
+        String minute = (tasks.get(position).getTaskDueMinute() < 10 ? "0" : "") + tasks.get(position).getTaskDueMinute();
+        String hour = (tasks.get(position).getTaskDueHour() < 10 ? "0" : "") + tasks.get(position).getTaskDueHour();
+
+        List<String> list = Arrays.asList(day, month, minute, hour);
+        return list;
     }
 
 
@@ -86,17 +159,24 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>   
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView taskTitle;
+        TextView taskTitle, taskDate, taskTime;
         CheckBox checkBox;
+        LinearLayout rootView;
+        View divider;
 
         public ViewHolder(final View itemView) {
             super(itemView);
             taskTitle = itemView.findViewById(R.id.task_title);
             checkBox = itemView.findViewById(R.id.check_box);
+            rootView = itemView.findViewById(R.id.rootView);
+            taskDate = itemView.findViewById(R.id.task_date);
+            taskTime = itemView.findViewById(R.id.task_time);
+            divider = itemView.findViewById(R.id.divider);
         }
+
     }
 
-    public List<Task> sortBooleanTypeList(List<Task> tasksList){
+    public List<Task> sortBooleanTypeList(List<Task> tasksList) {
         Collections.sort(tasksList, new Comparator<Task>() {
             @Override
             public int compare(Task task, Task t1) {
