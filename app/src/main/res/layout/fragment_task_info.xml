@@ -72,7 +72,7 @@
                     android:layout_below="@id/title"
                     android:background="@drawable/corner_radius"/>
 
-                
+
                 <!--Notes-->
                 <EditText
                     android:id="@+id/notes"

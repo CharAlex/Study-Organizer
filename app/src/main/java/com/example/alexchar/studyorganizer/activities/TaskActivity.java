@@ -129,4 +129,8 @@ public class TaskActivity extends AppCompatActivity {
             noTaskIcon.setVisibility(View.VISIBLE);
         }
     }
+
+    public TaskAdapter getTaskAdapter(){
+        return taskAdapter;
+    }
 }

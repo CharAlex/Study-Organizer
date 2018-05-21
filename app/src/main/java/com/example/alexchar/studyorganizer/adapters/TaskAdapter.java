@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ import com.example.alexchar.studyorganizer.TaskDatabase;
 import com.example.alexchar.studyorganizer.activities.TaskActivity;
 import com.example.alexchar.studyorganizer.entities.Task;
 import com.example.alexchar.studyorganizer.fragments.TaskInfoFragment;
+import com.example.alexchar.studyorganizer.fragments.setTaskFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -109,24 +111,42 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             }
         });
 
+//        Start edit task activity
+        holder.edit_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int taskId = tasks.get(position).getTid();
+                Bundle bundle = new Bundle();
+                bundle.putInt("taskId", taskId);
+                TaskActivity taskActivity = (TaskActivity) context;
+                setTaskFragment fragment = new setTaskFragment();
+                fragment.setArguments(bundle);
+                taskActivity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, fragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
 
         //Make click listener to each row item
         holder.itemView.setOnTouchListener(new View.OnTouchListener() {
+
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_UP || motionEvent.getAction() == MotionEvent.ACTION_CANCEL) {
-                    TaskActivity taskActivity = (TaskActivity) context;
-                    taskActivity.onBackPressed();
-                    return false;
-                }
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN && motionEvent.getAction() != MotionEvent.ACTION_CANCEL) {
                     //Start new TaskInfo Fragment
                     parseTaskId(holder.getAdapterPosition());
                     return true;
                 }
-                return true;
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP || motionEvent.getAction() == MotionEvent.ACTION_CANCEL) {
+                    TaskActivity taskActivity = (TaskActivity) context;
+                    taskActivity.onBackPressed();
+                    return true;
+                }
+                return false;
             }
         });
+
     }
 
     private void parseTaskId(int adapterPosition) {
@@ -163,6 +183,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         CheckBox checkBox;
         LinearLayout rootView;
         View divider;
+        ImageButton edit_button;
 
         public ViewHolder(final View itemView) {
             super(itemView);
@@ -172,6 +193,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             taskDate = itemView.findViewById(R.id.task_date);
             taskTime = itemView.findViewById(R.id.task_time);
             divider = itemView.findViewById(R.id.divider);
+            edit_button = itemView.findViewById(R.id.edit_button);
         }
 
     }
@@ -191,4 +213,5 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     public List<Task> getTasks() {
         return tasks;
     }
+
 }

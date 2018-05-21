@@ -31,7 +31,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
         android:orientation="vertical">
-        <include layout="@layout/input_layout" />
+        <include layout="@layout/edit_subject_shared_layout" />
 
     </LinearLayout>
 

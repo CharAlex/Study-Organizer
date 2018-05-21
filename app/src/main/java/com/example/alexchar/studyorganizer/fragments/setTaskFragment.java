@@ -43,7 +43,6 @@ import static android.content.ContentValues.TAG;
 public class setTaskFragment extends Fragment {
     private Button cancel_button, save_button;
     private EditText datepicker_button, timepicker_button, datepicker, timepicker, title, notes;
-    private AutoCompleteTextView autoCompleteTextView;
     private SubjectDatabase sDatabase;
     private List<Subject> subjectList;
     private List<String> subjectNamesList = new ArrayList<>();
@@ -51,7 +50,7 @@ public class setTaskFragment extends Fragment {
     private int selectedSubjectId;
     private Calendar mCurrentDate;
     private int day, month, year, hour, minute;
-    private Task task = new Task();
+    private Task task = new Task(), editTaskObject;
     private TaskDatabase tDatabase;
 
     public setTaskFragment() {
@@ -64,17 +63,89 @@ public class setTaskFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_set_task, container, false);
         tDatabase = TaskDatabase.getTaskDatabase(getActivity());
-        setAutoCompleteTextView(view);
+        setViews(view);
         setButtons(view);
+        Bundle bundle = this.getArguments();
+//        If the bundle is not null it means that the adapter parsed this taskId to edit the task
+        if (bundle != null) {
+            int editTaskId = bundle.getInt("taskId", 1);
+            setFields(editTaskId);
+        }
         return view;
     }
 
-    private void setButtons(final View viewFragment) {
-        cancel_button = viewFragment.findViewById(R.id.cancel_button);
-        save_button = viewFragment.findViewById(R.id.save_button);
-        datepicker_button = viewFragment.findViewById(R.id.datepicker_button);
-        timepicker_button = viewFragment.findViewById(R.id.timepicker_button);
+    private void setViews(View mView) {
+        notes = mView.findViewById(R.id.notes);
+        title = mView.findViewById(R.id.set_title_input);
+        notes = mView.findViewById(R.id.notes);
+        cancel_button = mView.findViewById(R.id.cancel_button);
+        save_button = mView.findViewById(R.id.save_button);
+        datepicker_button = mView.findViewById(R.id.datepicker_button);
+        timepicker_button = mView.findViewById(R.id.timepicker_button);
+        datepicker = datepicker_button;
+        timepicker = timepicker_button;
+        timepicker.setEnabled(false);
+    }
 
+    private void setFields(int editTaskId) {
+        tDatabase = TaskDatabase.getTaskDatabase(getActivity());
+        editTaskObject = tDatabase.taskDao().findById(editTaskId);
+
+        title.setText(editTaskObject.getTaskName());
+        notes.setText(editTaskObject.getTaskNotes());
+
+        String setDate = ((editTaskObject.getTaskDueDay()) < 10 ? "0" : "") + editTaskObject.getTaskDueDay() + "/" + ((editTaskObject.getTaskDueMonth()) < 10 ? "0" : "") + editTaskObject.getTaskDueMonth() + "/" + ((editTaskObject.getTaskDueYear()) < 10 ? "0" : "") + editTaskObject.getTaskDueYear();
+        String setTime = ((editTaskObject.getTaskDueHour()) < 10 ? "0" : "") + editTaskObject.getTaskDueHour() + ":" + ((editTaskObject.getTaskDueMinute()) < 10 ? "0" : "") + editTaskObject.getTaskDueMinute();
+
+        if(editTaskObject.getTaskDueDay() != 0 ){
+            datepicker_button.setText(setDate);
+        }
+        if(editTaskObject.getTaskDueHour() != 0 ){
+            timepicker_button.setText(setTime);
+            timepicker_button.setEnabled(true);
+        }
+        save_button.setText("Αποθήκευση");
+        save_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!title.getText().toString().equals("")) {
+                    String name = title.getText().toString();
+                    int sId = editTaskObject.getSubjectId();
+                    String[] mDate = datepicker_button.getText().toString().split("/");
+                    int year = Integer.valueOf(mDate[2]);
+                    int month = Integer.valueOf(mDate[1]);
+                    int day = Integer.valueOf(mDate[0]);
+                    String[] mTime = timepicker_button.getText().toString().split(":");
+                    int hour = Integer.valueOf(mTime[0]);
+                    int minute = Integer.valueOf(mTime[0]);
+                    String mNotes = notes.getText().toString();
+                    tDatabase.taskDao().update(name,sId,year,month,day,hour,minute,mNotes,editTaskObject.getTid());
+                    Intent intent = new Intent(getActivity(), TaskActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    Toast.makeText(getActivity(), "Το task ενημερώθηκε!", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    AlertDialog.Builder builder;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        builder = new AlertDialog.Builder(getActivity(), android.R.style.Theme_Material_Dialog_Alert);
+                    } else {
+                        builder = new AlertDialog.Builder(getActivity());
+                    }
+                    builder.setTitle("Επεργασία Task")
+                            .setMessage("Το πεδίο με τον τίτλο δεν μπορεί να είναι κενό.")
+                            .setNeutralButton("Οκ", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+            }
+        });
+    }
+
+    private void setButtons(final View mView) {
         setCurrentDate();
         setCurrentTime();
 
@@ -97,7 +168,6 @@ public class setTaskFragment extends Fragment {
                         task.setTaskDueDay(day);
 //                        Print the real month and not the index of it
                         month++;
-                        datepicker = viewFragment.findViewById(R.id.datepicker_button);
                         String setDate = ((day) < 10 ? "0" : "") + day + "/" + ((month) < 10 ? "0" : "") + month + "/" + ((year) < 10 ? "0" : "") + year;
                         datepicker.setText(setDate);
 //                        Only if the date is set then enable timepicker_button
@@ -107,9 +177,6 @@ public class setTaskFragment extends Fragment {
                 datePickerDialog.show();
             }
         });
-
-        timepicker = viewFragment.findViewById(R.id.timepicker_button);
-        timepicker.setEnabled(false);
 
         timepicker_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,16 +198,14 @@ public class setTaskFragment extends Fragment {
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                title = viewFragment.findViewById(R.id.set_title_input);
-                notes = viewFragment.findViewById(R.id.notes);
 //                Check if the title is null
-                if (!title.getText().toString().equals("")) {
+                if (!title.getText().toString().equals("") && ((datepicker.getText().toString().equals("Ημερομηνία") && timepicker_button.getText().toString().equals("Ώρα")) || (!datepicker.getText().toString().equals("Ημερομηνία") && !timepicker_button.getText().toString().equals("Ώρα")))){
                     task.setTaskName(title.getText().toString());
                     task.setSubjectId(selectedSubjectId);
                     task.setTaskNotes(notes.getText().toString());
                     tDatabase.taskDao().insertAll(task);
                     Intent intent = new Intent(getActivity(), TaskActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     Toast.makeText(getActivity(), "Το task προστέθηκε!", Toast.LENGTH_LONG).show();
                 } else {
@@ -150,15 +215,18 @@ public class setTaskFragment extends Fragment {
                     } else {
                         builder = new AlertDialog.Builder(getActivity());
                     }
+                    String text = "Το πεδίο με τον τίτλο δεν μπορεί να είναι κενό.";
+                    if(!datepicker.getText().toString().equals("Ημερομηνία") && timepicker_button.getText().toString().equals("Ώρα")){
+                        text = "Για τον καθορισμό της προθεσμίας είναι απαραίτητο να συμπληρώσετε την ώρα";
+                    }
                     builder.setTitle("Δημιουργήστε Task")
-                            .setMessage("Το πεδίο με τον τίτλο δεν μπορεί να είναι κενό.")
+                            .setMessage(text)
                             .setNeutralButton("Οκ", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                 }
                             })
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .show();
-
                 }
             }
         });
@@ -178,61 +246,5 @@ public class setTaskFragment extends Fragment {
         year = mCurrentDate.get(Calendar.YEAR);
     }
 
-    private void setAutoCompleteTextView(View view) {
-        autoCompleteTextView = view.findViewById(R.id.autocomplete_search);
-        ImageView dropdownButton = view.findViewById(R.id.dropdown_icon);
-        sDatabase = SubjectDatabase.getSubjectDatabase(getActivity());
-        subjectList = sDatabase.subjectDao().getAll();
 
-
-//        Getting the names of the subjects and adding them in to the array
-        for (Subject subject : subjectList) {
-            subjectNamesList.add(subject.getSubjectName());
-//            Store ids of the subjects in same position in order to use this id to update the selected subject grade
-            subjectIdsList.add(subject.getSid());
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.support_simple_spinner_dropdown_item, subjectNamesList);
-        autoCompleteTextView.setAdapter(adapter);
-
-//        When the user presses at least one button the autocompletetextview searches the array
-        autoCompleteTextView.setThreshold(1);
-
-//        Setting up the dropwdown button for displaying all the subjects
-        dropdownButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                autoCompleteTextView.showDropDown();
-            }
-        });
-
-//        Make sure that user select the name from the existing name stored in subjectNameList
-        autoCompleteTextView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (!b) {
-                    String typedSubject = autoCompleteTextView.getText().toString();
-
-                    ListAdapter listAdapter = autoCompleteTextView.getAdapter();
-                    for (int i = 0; i < listAdapter.getCount(); i++) {
-                        String existingSubject = listAdapter.getItem(i).toString();
-                        if (typedSubject.equals(existingSubject)) {
-                            return;
-                        }
-                    }
-//                    if focused changed and the the typed subject isnt equal to any existing subject then set the text to null
-                    autoCompleteTextView.setText("");
-                }
-            }
-        });
-
-//        get the id of the subject that was selected from the autocompletetextview
-        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                int index = subjectNamesList.indexOf(autoCompleteTextView.getText().toString());
-                selectedSubjectId = subjectIdsList.get(index);
-                Log.d(TAG, "ID SELECTED: " + selectedSubjectId);
-            }
-        });
-    }
 }

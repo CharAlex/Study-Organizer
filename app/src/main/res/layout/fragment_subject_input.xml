@@ -19,7 +19,7 @@
             android:orientation="vertical">
 
             <!--This next section is re-used in another activity so i create separate file and include it here-->
-            <include layout="@layout/input_layout" />
+            <include layout="@layout/edit_subject_shared_layout" />
 
             <!--Buttons Cancel and Submit!-->
             <LinearLayout

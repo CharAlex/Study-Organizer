@@ -145,6 +145,7 @@ public class SetMarkFragment extends Fragment {
                     for(int i = 0; i < listAdapter.getCount(); i++) {
                         String existingSubject = listAdapter.getItem(i).toString();
                         if(typedSubject.equals(existingSubject)) {
+                            selectedSubjectId = subjectIdsList.get(i);
                             return;
                         }
                     }
