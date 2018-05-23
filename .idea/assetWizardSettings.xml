@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_edit_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_clear_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,12 +28,12 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="484848" />
-                            <entry key="height" value="20" />
-                            <entry key="outputName" value="ic_edit_black_20dp" />
+                            <entry key="color" value="c5202d" />
+                            <entry key="height" value="18" />
+                            <entry key="outputName" value="ic_clear_red_18dp" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\Alex\Desktop\app_icons\null_todo_icon.svg" />
-                            <entry key="width" value="20" />
+                            <entry key="width" value="18" />
                           </map>
                         </option>
                       </PersistentState>

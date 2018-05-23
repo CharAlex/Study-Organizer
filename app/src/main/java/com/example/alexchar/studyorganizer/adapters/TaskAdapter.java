@@ -60,7 +60,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         }
 
         holder.taskTitle.setText(tasks.get(position).getTaskName());
-        if (tasks.get(holder.getAdapterPosition()).getTaskDueDay() != 0) {
+        if (tasks.get(holder.getAdapterPosition()).getTaskDueDay() != -1) {
 //            Call method to conver 1 to 01 etc
             List<String> formatedDateAndTime = setDateAndTimeFormat(position);
             holder.taskDate.setText(formatedDateAndTime.get(0) + "/" + formatedDateAndTime.get(1) + "/" + tasks.get(position).getTaskDueYear());

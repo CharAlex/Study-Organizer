@@ -68,7 +68,7 @@
             android:layout_below="@+id/notes"
             android:layout_marginBottom="4dp"
             android:layout_marginTop="12dp"
-            android:text="Καθορισμός Προθεσμίας"
+            android:text="Καθορισμός Υπενθύμισης"
             android:textAlignment="center"
             android:textSize="12sp" />
 
@@ -81,29 +81,49 @@
             android:layout_marginRight="8dp"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/datepicker_button"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="6dp"
-                android:layout_weight="1"
-                android:background="@drawable/corner_radius"
-                android:clickable="true"
-                android:drawableLeft="@drawable/ic_baseline_calendar_today_18px"
-                android:drawablePadding="8dp"
-                android:focusable="false"
-                android:paddingBottom="4dp"
-                android:paddingLeft="8dp"
-                android:paddingTop="4dp"
-                android:text="Ημερομηνία"
-                android:textSize="14sp" />
+                android:layout_weight="1">
+                <EditText
+                    android:id="@+id/datepicker_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_radius"
+                    android:clickable="true"
+                    android:drawableLeft="@drawable/ic_baseline_calendar_today_18px"
+                    android:drawablePadding="8dp"
+                    android:focusable="false"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="4dp"
+                    android:text="Ημερομηνία"
+                    android:textSize="14sp" />
 
+                <ImageButton
+                    android:id="@+id/clear_date_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/datepicker_button"
+                    android:layout_alignRight="@id/datepicker_button"
+                    android:layout_alignTop="@id/datepicker_button"
+                    android:background="#f5f5f5"
+                    android:layout_marginRight="8dp"
+                    android:paddingRight="0dp"
+                    app:srcCompat="@drawable/ic_clear_red_18dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
             <EditText
                 android:id="@+id/timepicker_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
-                android:layout_weight="1"
                 android:background="@drawable/corner_radius"
                 android:clickable="true"
                 android:drawableLeft="@drawable/ic_access_time_black_24dp"
@@ -114,6 +134,18 @@
                 android:paddingTop="4dp"
                 android:text="Ώρα"
                 android:textSize="14sp" />
+                <ImageButton
+                    android:id="@+id/clear_time_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/timepicker_button"
+                    android:layout_alignRight="@id/timepicker_button"
+                    android:layout_alignTop="@id/timepicker_button"
+                    android:background="#f5f5f5"
+                    android:layout_marginRight="8dp"
+                    android:paddingRight="0dp"
+                    app:srcCompat="@drawable/ic_clear_red_18dp" />
+            </RelativeLayout>
 
         </LinearLayout>
 

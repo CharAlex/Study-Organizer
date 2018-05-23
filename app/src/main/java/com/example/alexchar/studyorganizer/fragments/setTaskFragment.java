@@ -1,41 +1,38 @@
 package com.example.alexchar.studyorganizer.fragments;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
+import android.widget.ImageButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.alexchar.studyorganizer.AlertReceiver;
 import com.example.alexchar.studyorganizer.R;
 import com.example.alexchar.studyorganizer.SubjectDatabase;
 import com.example.alexchar.studyorganizer.TaskDatabase;
-import com.example.alexchar.studyorganizer.activities.MarkActivity;
 import com.example.alexchar.studyorganizer.activities.TaskActivity;
 import com.example.alexchar.studyorganizer.entities.Subject;
 import com.example.alexchar.studyorganizer.entities.Task;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
@@ -47,11 +44,14 @@ public class setTaskFragment extends Fragment {
     private List<Subject> subjectList;
     private List<String> subjectNamesList = new ArrayList<>();
     private List<Integer> subjectIdsList = new ArrayList<>();
-    private int selectedSubjectId;
+    private int selectedSubjectId, requestCode = 1;
     private Calendar mCurrentDate;
-    private int day, month, year, hour, minute;
+    private int day = -1, month = -1, year = -1, hour = -1, minute = -1;
     private Task task = new Task(), editTaskObject;
     private TaskDatabase tDatabase;
+    private ImageButton clear_date_button, clear_time_button;
+//    HashMap that contains the task id and the requestCode
+    private HashMap<Integer, Integer> remindersSet = new HashMap<>();
 
     public setTaskFragment() {
         // Required empty public constructor
@@ -84,6 +84,10 @@ public class setTaskFragment extends Fragment {
         timepicker_button = mView.findViewById(R.id.timepicker_button);
         datepicker = datepicker_button;
         timepicker = timepicker_button;
+        clear_date_button = mView.findViewById(R.id.clear_date_button);
+        clear_date_button.setVisibility(View.INVISIBLE);
+        clear_time_button = mView.findViewById(R.id.clear_time_button);
+        clear_time_button.setVisibility(View.INVISIBLE);
         timepicker.setEnabled(false);
     }
 
@@ -97,43 +101,90 @@ public class setTaskFragment extends Fragment {
         String setDate = ((editTaskObject.getTaskDueDay()) < 10 ? "0" : "") + editTaskObject.getTaskDueDay() + "/" + ((editTaskObject.getTaskDueMonth()) < 10 ? "0" : "") + editTaskObject.getTaskDueMonth() + "/" + ((editTaskObject.getTaskDueYear()) < 10 ? "0" : "") + editTaskObject.getTaskDueYear();
         String setTime = ((editTaskObject.getTaskDueHour()) < 10 ? "0" : "") + editTaskObject.getTaskDueHour() + ":" + ((editTaskObject.getTaskDueMinute()) < 10 ? "0" : "") + editTaskObject.getTaskDueMinute();
 
-        if(editTaskObject.getTaskDueDay() != 0 ){
+        if (editTaskObject.getTaskDueDay() != -1) {
             datepicker_button.setText(setDate);
         }
-        if(editTaskObject.getTaskDueHour() != 0 ){
+
+        if (editTaskObject.getTaskDueHour() != -1) {
             timepicker_button.setText(setTime);
             timepicker_button.setEnabled(true);
         }
+        if (!datepicker_button.getText().toString().equals("Ημερομηνία")) {
+            clear_date_button.setVisibility(View.VISIBLE);
+            timepicker_button.setEnabled(true);
+        }
+
+        if (!timepicker_button.getText().toString().equals("Ώρα"))
+            clear_time_button.setVisibility(View.VISIBLE);
+
+        clear_date_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!datepicker_button.getText().toString().equals("Ημερομηνία"))
+                    datepicker_button.setText("Ημερομηνία");
+                clear_date_button.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        clear_time_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!timepicker_button.getText().toString().equals("Ώρα"))
+                    timepicker_button.setText("Ώρα");
+                clear_time_button.setVisibility(View.INVISIBLE);
+            }
+        });
+
         save_button.setText("Αποθήκευση");
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!title.getText().toString().equals("")) {
+                if (!title.getText().toString().equals("") && ((datepicker.getText().toString().equals("Ημερομηνία") && timepicker_button.getText().toString().equals("Ώρα")) || (!datepicker.getText().toString().equals("Ημερομηνία") && !timepicker_button.getText().toString().equals("Ώρα")))) {
                     String name = title.getText().toString();
                     int sId = editTaskObject.getSubjectId();
-                    String[] mDate = datepicker_button.getText().toString().split("/");
-                    int year = Integer.valueOf(mDate[2]);
-                    int month = Integer.valueOf(mDate[1]);
-                    int day = Integer.valueOf(mDate[0]);
-                    String[] mTime = timepicker_button.getText().toString().split(":");
-                    int hour = Integer.valueOf(mTime[0]);
-                    int minute = Integer.valueOf(mTime[0]);
+
+                    int year = -1;
+                    month = -1;
+                    day = -1;
+                    if (!datepicker_button.getText().toString().equals("Ημερομηνία")) {
+                        String[] mDate = datepicker_button.getText().toString().split("/");
+                        year = Integer.valueOf(mDate[2]);
+                        month = Integer.valueOf(mDate[1]);
+                        day = Integer.valueOf(mDate[0]);
+                    }
+
+                    int hour = -1, minute = -1;
+                    if (!timepicker_button.getText().toString().equals("Ώρα")) {
+                        String[] mTime = timepicker_button.getText().toString().split(":");
+                        hour = Integer.valueOf(mTime[0]);
+                        minute = Integer.valueOf(mTime[1]);
+                    }
+
                     String mNotes = notes.getText().toString();
-                    tDatabase.taskDao().update(name,sId,year,month,day,hour,minute,mNotes,editTaskObject.getTid());
+                    tDatabase.taskDao().update(name, sId, year, month, day, hour, minute, mNotes, editTaskObject.getTid());
+                    if (!datepicker_button.getText().toString().equals("Ημερομηνία")) {
+                        setAlarm(editTaskObject.getTid());
+                    }else{
+                        cancelAlarm(editTaskObject.getTid());
+                    }
+
                     Intent intent = new Intent(getActivity(), TaskActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     Toast.makeText(getActivity(), "Το task ενημερώθηκε!", Toast.LENGTH_LONG).show();
-                }
-                else {
+                } else {
                     AlertDialog.Builder builder;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         builder = new AlertDialog.Builder(getActivity(), android.R.style.Theme_Material_Dialog_Alert);
                     } else {
                         builder = new AlertDialog.Builder(getActivity());
                     }
-                    builder.setTitle("Επεργασία Task")
-                            .setMessage("Το πεδίο με τον τίτλο δεν μπορεί να είναι κενό.")
+                    String text = "Το πεδίο με τον τίτλο δεν μπορεί να είναι κενό.";
+                    if (!datepicker.getText().toString().equals("Ημερομηνία") && timepicker_button.getText().toString().equals("Ώρα")) {
+                        text = "Για τον καθορισμό της προθεσμίας είναι απαραίτητο να συμπληρώσετε την ώρα";
+                    }
+                    builder.setTitle("Επεξεργασία Task")
+                            .setMessage(text)
                             .setNeutralButton("Οκ", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                 }
@@ -156,13 +207,20 @@ public class setTaskFragment extends Fragment {
             }
         });
 
+//        if datepicker and timepicker isnt pressed at all
+        task.setTaskDueYear(-1);
+        task.setTaskDueMonth(-1);
+        task.setTaskDueDay(-1);
+        task.setTaskDueMinute(-1);
+        task.setTaskDueHour(-1);
+
 //        DatePicker Button
         datepicker_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                    public void onDateSet(final DatePicker datePicker, int year, int month, int day) {
                         task.setTaskDueYear(year);
                         task.setTaskDueMonth(month);
                         task.setTaskDueDay(day);
@@ -170,6 +228,20 @@ public class setTaskFragment extends Fragment {
                         month++;
                         String setDate = ((day) < 10 ? "0" : "") + day + "/" + ((month) < 10 ? "0" : "") + month + "/" + ((year) < 10 ? "0" : "") + year;
                         datepicker.setText(setDate);
+//                        If datepicker is set then show the button to clear the text
+                        if (!datepicker.getText().toString().equals("Ημερομηνία")) {
+                            clear_date_button.setVisibility(View.VISIBLE);
+                            clear_date_button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    datepicker.setText("Ημερομηνία");
+                                    clear_date_button.setVisibility(View.INVISIBLE);
+                                    task.setTaskDueYear(-1);
+                                    task.setTaskDueMonth(-1);
+                                    task.setTaskDueDay(-1);
+                                }
+                            });
+                        }
 //                        Only if the date is set then enable timepicker_button
                         timepicker.setEnabled(true);
                     }
@@ -188,6 +260,19 @@ public class setTaskFragment extends Fragment {
                         task.setTaskDueMinute(minute);
                         String setTime = ((hour) < 10 ? "0" : "") + hour + ":" + ((minute) < 10 ? "0" : "") + minute;
                         timepicker.setText(setTime);
+//                        If datepicker is set then show the button to clear the text
+                        if (!timepicker.getText().toString().equals("Ημερομηνία")) {
+                            clear_time_button.setVisibility(View.VISIBLE);
+                            clear_time_button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    timepicker.setText("Ώρα");
+                                    clear_time_button.setVisibility(View.INVISIBLE);
+                                    task.setTaskDueHour(-1);
+                                    task.setTaskDueMinute(-1);
+                                }
+                            });
+                        }
                     }
                 }, hour, minute, true);
                 timePickerDialog.show();
@@ -199,11 +284,14 @@ public class setTaskFragment extends Fragment {
             @Override
             public void onClick(View view) {
 //                Check if the title is null
-                if (!title.getText().toString().equals("") && ((datepicker.getText().toString().equals("Ημερομηνία") && timepicker_button.getText().toString().equals("Ώρα")) || (!datepicker.getText().toString().equals("Ημερομηνία") && !timepicker_button.getText().toString().equals("Ώρα")))){
+                if (!title.getText().toString().equals("") && ((datepicker.getText().toString().equals("Ημερομηνία") && timepicker_button.getText().toString().equals("Ώρα")) || (!datepicker.getText().toString().equals("Ημερομηνία") && !timepicker_button.getText().toString().equals("Ώρα")))) {
                     task.setTaskName(title.getText().toString());
                     task.setSubjectId(selectedSubjectId);
                     task.setTaskNotes(notes.getText().toString());
-                    tDatabase.taskDao().insertAll(task);
+                    int id = (int) tDatabase.taskDao().insert(task);
+                    if(!datepicker.getText().toString().equals("Ημερομηνία"))
+                        setAlarm(id);
+
                     Intent intent = new Intent(getActivity(), TaskActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
@@ -216,7 +304,7 @@ public class setTaskFragment extends Fragment {
                         builder = new AlertDialog.Builder(getActivity());
                     }
                     String text = "Το πεδίο με τον τίτλο δεν μπορεί να είναι κενό.";
-                    if(!datepicker.getText().toString().equals("Ημερομηνία") && timepicker_button.getText().toString().equals("Ώρα")){
+                    if (!datepicker.getText().toString().equals("Ημερομηνία") && timepicker_button.getText().toString().equals("Ώρα")) {
                         text = "Για τον καθορισμό της προθεσμίας είναι απαραίτητο να συμπληρώσετε την ώρα";
                     }
                     builder.setTitle("Δημιουργήστε Task")
@@ -246,5 +334,40 @@ public class setTaskFragment extends Fragment {
         year = mCurrentDate.get(Calendar.YEAR);
     }
 
+    private void setAlarm(int reminderForTaskTid) {
+        Calendar mCalendar = Calendar.getInstance();
+        if (!datepicker_button.getText().toString().equals("Ημερομηνία")) {
+            int mYear, mMonth, mDay, mHour, mMinute;
 
+            String[] mDate = datepicker_button.getText().toString().split("/");
+            mYear = Integer.valueOf(mDate[2]);
+            mMonth = Integer.valueOf(mDate[1]) - 1;
+            mDay = Integer.valueOf(mDate[0]);
+
+            String[] mTime = timepicker_button.getText().toString().split(":");
+            mHour = Integer.valueOf(mTime[0]);
+            mMinute = Integer.valueOf(mTime[1]);
+            mCalendar.set(Calendar.YEAR, mYear);
+            mCalendar.set(Calendar.DATE, mDay);
+            mCalendar.set(Calendar.MONTH, mMonth);
+            mCalendar.set(Calendar.HOUR_OF_DAY, mHour);
+            mCalendar.set(Calendar.MINUTE, mMinute);
+            mCalendar.set(Calendar.SECOND, 0);
+
+            AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+            Intent intent = new Intent(getActivity(), AlertReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), reminderForTaskTid, intent, 0);
+            Log.d(TAG, "setAlarm: TID SET " + reminderForTaskTid );
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), pendingIntent);
+
+        }
+    }
+
+    private void cancelAlarm(int reminderForTaskTid) {
+        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(getActivity(), AlertReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), reminderForTaskTid, intent, 0);
+        Log.d(TAG, "setAlarm: TID cancel " + reminderForTaskTid );
+        alarmManager.cancel(pendingIntent);
+    }
 }
