@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 import com.example.alexchar.studyorganizer.activities.MarkActivity;
 import com.example.alexchar.studyorganizer.R;
-import com.example.alexchar.studyorganizer.SubjectDatabase;
+import com.example.alexchar.studyorganizer.database.SubjectDatabase;
 import com.example.alexchar.studyorganizer.entities.Subject;
 
 import java.util.ArrayList;

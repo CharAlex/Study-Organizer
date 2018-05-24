@@ -1,11 +1,9 @@
 package com.example.alexchar.studyorganizer.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,20 +14,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.alexchar.studyorganizer.R;
-import com.example.alexchar.studyorganizer.TaskDatabase;
+import com.example.alexchar.studyorganizer.database.TaskDatabase;
 import com.example.alexchar.studyorganizer.activities.TaskActivity;
 import com.example.alexchar.studyorganizer.entities.Task;
 import com.example.alexchar.studyorganizer.fragments.TaskInfoFragment;
 import com.example.alexchar.studyorganizer.fragments.setTaskFragment;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Timer;
-
-import static android.content.ContentValues.TAG;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 

@@ -26,7 +26,10 @@
             android:label="@string/title_activity_marks"
             android:theme="@style/AppTheme" />
         <activity android:name=".activities.TaskActivity" />
-        <receiver android:name=".AlertReceiver"/>
+
+        <receiver android:name=".AlertReceiver" />
+
+        <activity android:name=".activities.ExamActivity"></activity>
     </application>
 
 </manifest>

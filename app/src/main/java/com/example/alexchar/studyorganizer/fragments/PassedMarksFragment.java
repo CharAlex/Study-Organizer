@@ -10,7 +10,7 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import com.example.alexchar.studyorganizer.R;
-import com.example.alexchar.studyorganizer.SubjectDatabase;
+import com.example.alexchar.studyorganizer.database.SubjectDatabase;
 import com.example.alexchar.studyorganizer.entities.Subject;
 import com.example.alexchar.studyorganizer.adapters.PassedMarksAdapter;
 

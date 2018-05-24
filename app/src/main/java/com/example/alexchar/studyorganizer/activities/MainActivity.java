@@ -47,12 +47,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-//        exam_button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(MainActivity.this, activity);
-//                startActivity(intent);
-//            }
-//        });
+        exam_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ExamActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

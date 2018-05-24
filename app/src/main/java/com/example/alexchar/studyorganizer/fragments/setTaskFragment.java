@@ -24,8 +24,8 @@ import android.widget.Toast;
 
 import com.example.alexchar.studyorganizer.AlertReceiver;
 import com.example.alexchar.studyorganizer.R;
-import com.example.alexchar.studyorganizer.SubjectDatabase;
-import com.example.alexchar.studyorganizer.TaskDatabase;
+import com.example.alexchar.studyorganizer.database.SubjectDatabase;
+import com.example.alexchar.studyorganizer.database.TaskDatabase;
 import com.example.alexchar.studyorganizer.activities.TaskActivity;
 import com.example.alexchar.studyorganizer.entities.Subject;
 import com.example.alexchar.studyorganizer.entities.Task;

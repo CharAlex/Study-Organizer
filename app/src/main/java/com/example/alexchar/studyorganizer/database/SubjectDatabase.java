@@ -1,4 +1,4 @@
-package com.example.alexchar.studyorganizer;
+package com.example.alexchar.studyorganizer.database;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;

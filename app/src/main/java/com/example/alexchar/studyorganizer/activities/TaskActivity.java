@@ -2,27 +2,19 @@ package com.example.alexchar.studyorganizer.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.Paint;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.example.alexchar.studyorganizer.R;
-import com.example.alexchar.studyorganizer.TagViewHolder;
-import com.example.alexchar.studyorganizer.TaskDatabase;
+import com.example.alexchar.studyorganizer.database.TaskDatabase;
 import com.example.alexchar.studyorganizer.adapters.TaskAdapter;
 import com.example.alexchar.studyorganizer.entities.Task;
-import com.example.alexchar.studyorganizer.fragments.SetMarkFragment;
 import com.example.alexchar.studyorganizer.fragments.setTaskFragment;
 
 import java.util.List;

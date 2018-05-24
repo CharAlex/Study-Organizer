@@ -1,7 +1,5 @@
 package com.example.alexchar.studyorganizer.fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -12,8 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.alexchar.studyorganizer.R;
-import com.example.alexchar.studyorganizer.SubjectDatabase;
-import com.example.alexchar.studyorganizer.TaskDatabase;
+import com.example.alexchar.studyorganizer.database.SubjectDatabase;
+import com.example.alexchar.studyorganizer.database.TaskDatabase;
 import com.example.alexchar.studyorganizer.entities.Subject;
 import com.example.alexchar.studyorganizer.entities.Task;
 

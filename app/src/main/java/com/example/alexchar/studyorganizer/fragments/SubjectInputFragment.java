@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.example.alexchar.studyorganizer.R;
 import com.example.alexchar.studyorganizer.activities.SubjectActivity;
-import com.example.alexchar.studyorganizer.SubjectDatabase;
+import com.example.alexchar.studyorganizer.database.SubjectDatabase;
 import com.example.alexchar.studyorganizer.entities.Subject;
 
 public class SubjectInputFragment extends Fragment {
