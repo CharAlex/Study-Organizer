@@ -15,7 +15,7 @@ import com.example.alexchar.studyorganizer.R;
 import com.example.alexchar.studyorganizer.database.TaskDatabase;
 import com.example.alexchar.studyorganizer.adapters.TaskAdapter;
 import com.example.alexchar.studyorganizer.entities.Task;
-import com.example.alexchar.studyorganizer.fragments.setTaskFragment;
+import com.example.alexchar.studyorganizer.fragments.TaskSetFragment;
 
 import java.util.List;
 
@@ -59,7 +59,7 @@ public class TaskActivity extends AppCompatActivity {
     }
 
     private void openFragment(){
-        setTaskFragment fragment = new setTaskFragment();
+        TaskSetFragment fragment = new TaskSetFragment();
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction transaction = fragmentManager.beginTransaction().add(R.id.fragment_container, fragment, null);
         transaction.addToBackStack(null);

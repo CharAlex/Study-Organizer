@@ -28,12 +28,13 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="c5202d" />
-                            <entry key="height" value="18" />
-                            <entry key="outputName" value="ic_clear_red_18dp" />
+                            <entry key="height" value="120" />
+                            <entry key="outputName" value="ic_null_exam_icon" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\Alex\Desktop\app_icons\null_todo_icon.svg" />
-                            <entry key="width" value="18" />
+                            <entry key="sourceFile" value="C:\Users\Alex\Desktop\app_icons\null_exam_icon.svg" />
+                            <entry key="width" value="120" />
                           </map>
                         </option>
                       </PersistentState>

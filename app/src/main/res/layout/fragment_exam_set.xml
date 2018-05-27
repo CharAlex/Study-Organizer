@@ -1,0 +1,283 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="32dp"
+    android:background="#FFF"
+    android:elevation="8dp"
+    app:cardUseCompatPadding="true"
+    tools:context="com.example.alexchar.studyorganizer.fragments.SubjectInputFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/green_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="#363b59"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="Προσθήκη Εξέτασης:"
+                android:textColor="#FFF"
+                android:textSize="18sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autocomplete_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/fragment_title"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/corner_radius"
+                    android:hint="Μάθημα"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="32dp"
+                    android:paddingTop="2dp" />
+
+                <ImageView
+                    android:id="@+id/search_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/autocomplete_search"
+                    android:layout_alignLeft="@+id/autocomplete_search"
+                    android:layout_alignTop="@id/autocomplete_search"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/ic_search_black_24dp" />
+
+                <ImageView
+                    android:id="@+id/dropdown_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/autocomplete_search"
+                    android:layout_alignRight="@+id/autocomplete_search"
+                    android:layout_alignTop="@id/autocomplete_search"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp" />
+            </RelativeLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/exam_room"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/corner_radius"
+                    android:hint="Αμφιθέατρο"
+                    android:maxLength="10"
+                    android:maxLines="1"
+                    android:paddingLeft="8dp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <!--DatePicker-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <EditText
+                        android:id="@+id/datepicker_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/corner_radius"
+                        android:clickable="true"
+                        android:drawableLeft="@drawable/ic_baseline_calendar_today_18px"
+                        android:drawablePadding="8dp"
+                        android:focusable="false"
+                        android:paddingBottom="4dp"
+                        android:paddingLeft="8dp"
+                        android:paddingTop="4dp"
+                        android:text="Ημερομηνία"
+                        android:textSize="14sp" />
+
+                    <ImageButton
+                        android:id="@+id/clear_date_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/datepicker_button"
+                        android:layout_alignRight="@id/datepicker_button"
+                        android:layout_alignTop="@id/datepicker_button"
+                        android:layout_marginRight="8dp"
+                        android:background="#f5f5f5"
+                        android:paddingRight="0dp"
+                        app:srcCompat="@drawable/ic_clear_red_18dp" />
+                </RelativeLayout>
+
+                <!--Datepicker-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1">
+
+                    <EditText
+                        android:id="@+id/timepicker_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="false"
+                        android:layout_marginLeft="6dp"
+                        android:background="@drawable/corner_radius"
+                        android:clickable="true"
+                        android:drawableLeft="@drawable/ic_access_time_black_24dp"
+                        android:drawablePadding="8dp"
+                        android:focusable="false"
+                        android:paddingBottom="4dp"
+                        android:paddingLeft="8dp"
+                        android:paddingTop="4dp"
+                        android:text="Ώρα"
+                        android:textSize="14sp" />
+
+                    <ImageButton
+                        android:id="@+id/clear_time_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/timepicker_button"
+                        android:layout_alignRight="@id/timepicker_button"
+                        android:layout_alignTop="@id/timepicker_button"
+                        android:layout_marginRight="8dp"
+                        android:background="#f5f5f5"
+                        android:paddingRight="0dp"
+                        app:srcCompat="@drawable/ic_clear_red_18dp" />
+                </RelativeLayout>
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Επιλέξτε Δυσκολία:"
+                android:textAlignment="center" />
+            <!--CheckBox Buttons!-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatCheckBox
+                    android:id="@+id/checkBox_hard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:paddingRight="12dp"
+                    android:text="Δύσκολο"
+                    app:buttonTint="@color/darkGrey"/>
+
+                <View
+                    android:id="@+id/importance_status"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_alignBottom="@id/checkBox_hard"
+                    android:layout_alignRight="@id/checkBox_hard"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="12dp"
+                    android:background="@color/colorFail" />
+
+                <android.support.v7.widget.AppCompatCheckBox
+                    android:id="@+id/checkBox_medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/checkBox_hard"
+                    android:layout_marginBottom="8dp"
+                    android:paddingRight="12dp"
+                    android:text="Μέτριο"
+                    app:buttonTint="@color/darkGrey" />
+
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_alignBottom="@id/checkBox_medium"
+                    android:layout_alignRight="@id/checkBox_medium"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="12dp"
+                    android:background="@color/randomColor3" />
+
+                <android.support.v7.widget.AppCompatCheckBox
+                    android:id="@+id/checkBox_easy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_toRightOf="@id/checkBox_medium"
+                    android:paddingRight="12dp"
+                    android:text="Έυκολο"
+                    app:buttonTint="@color/darkGrey" />
+
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_alignBottom="@id/checkBox_easy"
+                    android:layout_alignRight="@id/checkBox_easy"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="12dp"
+                    android:background="@color/colorSuccess" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <!--Buttons Cancel and Submit!-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/cancel_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:text="Ακύρωση"
+                android:textAllCaps="false"
+                android:textColor="#FFF"
+                android:theme="@style/SpecialButton" />
+
+            <Button
+                android:id="@+id/submit_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_weight="1"
+                android:text="Προσθήκη"
+                android:textAllCaps="false"
+                android:textColor="#FFF"
+                android:theme="@style/SaveButton" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

@@ -5,19 +5,46 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.alexchar.studyorganizer.R;
+import com.example.alexchar.studyorganizer.database.SubjectDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
     private CardView subject_button, marks_button, task_button, exam_button;
+    private SubjectDatabase sDatabase;
+    private ProgressBar passedProgress, failedProgress;
+    private TextView total,passed,failed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        sDatabase = SubjectDatabase.getSubjectDatabase(getApplicationContext());
+        setDashboardStatistics();
         //Open activities
         openActivities();
+    }
+
+    private void setDashboardStatistics() {
+        total = findViewById(R.id.total_number);
+        int totalSubjects = sDatabase.subjectDao().countSubjects();
+        total.setText(String.valueOf(totalSubjects));
+        passedProgress = findViewById(R.id.passed_progress);
+        passedProgress.setMax(totalSubjects);
+        int passedSubjects = sDatabase.subjectDao().getPassedSubjects();
+        passedProgress.setProgress(passedSubjects);
+        passed = findViewById(R.id.passed_number);
+        passed.setText(String.valueOf(passedSubjects));
+        failedProgress = findViewById(R.id.failed_progress);
+        failedProgress.setMax(totalSubjects);
+        int failedSubjects = totalSubjects-passedSubjects;
+        failedProgress.setProgress(failedSubjects);
+        failed=findViewById(R.id.failed_number);
+        failed.setText(String.valueOf(failedSubjects));
+
     }
 
     public void openActivities(){
@@ -54,5 +81,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onPostResume() {
+        setDashboardStatistics();
+        super.onPostResume();
     }
 }

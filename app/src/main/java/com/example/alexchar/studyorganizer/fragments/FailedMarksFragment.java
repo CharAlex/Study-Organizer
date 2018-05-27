@@ -22,7 +22,7 @@ public class FailedMarksFragment extends Fragment {
     SubjectDatabase sDatabase;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.marks_fragment,container,false);
+        View view = inflater.inflate(R.layout.fragment_marks,container,false);
         View listItemView = inflater.inflate(R.layout.passed_mark_list_item,container,false);
         sDatabase = SubjectDatabase.getSubjectDatabase(getActivity());
         //sDatabase.subjectDao().deleteAll();

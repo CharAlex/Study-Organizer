@@ -22,7 +22,7 @@ public class PassedMarksFragment extends Fragment {
     SubjectDatabase sDatabase;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.marks_fragment,container,false);
+        View view = inflater.inflate(R.layout.fragment_marks,container,false);
         sDatabase = SubjectDatabase.getSubjectDatabase(getActivity());
         //sDatabase.subjectDao().deleteAll();
         setExpandableListView(view);

@@ -29,7 +29,7 @@ import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
-public class SetMarkFragment extends Fragment {
+public class MarkSetFragment extends Fragment {
     private AutoCompleteTextView autoCompleteTextView;
     private SubjectDatabase sDatabase;
     private List<Subject> subjectList;

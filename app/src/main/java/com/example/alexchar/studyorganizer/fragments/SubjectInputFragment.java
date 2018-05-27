@@ -74,7 +74,7 @@ public class SubjectInputFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View v = inflater.inflate(R.layout.fragment_subject_input, container, false);
+        final View v = inflater.inflate(R.layout.fragment_set_subject, container, false);
         seekBar = (SeekBar) v.findViewById(R.id.semester_seekbar);
         TextView textView = (TextView) v.findViewById(R.id.semester_bar);
         radioButtonOb = (RadioButton) v.findViewById(R.id.radio_obligatory);

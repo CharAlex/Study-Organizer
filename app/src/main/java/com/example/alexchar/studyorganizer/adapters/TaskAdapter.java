@@ -18,7 +18,7 @@ import com.example.alexchar.studyorganizer.database.TaskDatabase;
 import com.example.alexchar.studyorganizer.activities.TaskActivity;
 import com.example.alexchar.studyorganizer.entities.Task;
 import com.example.alexchar.studyorganizer.fragments.TaskInfoFragment;
-import com.example.alexchar.studyorganizer.fragments.setTaskFragment;
+import com.example.alexchar.studyorganizer.fragments.TaskSetFragment;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -113,7 +113,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                 Bundle bundle = new Bundle();
                 bundle.putInt("taskId", taskId);
                 TaskActivity taskActivity = (TaskActivity) context;
-                setTaskFragment fragment = new setTaskFragment();
+                TaskSetFragment fragment = new TaskSetFragment();
                 fragment.setArguments(bundle);
                 taskActivity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, fragment)

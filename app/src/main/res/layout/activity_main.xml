@@ -73,7 +73,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="4dp"
                                 android:layout_marginRight="4dp"
-                                android:text="Subhead"
+                                android:text="Σημαντικές Πληροφορίες"
                                 android:textColor="#7C7C7C" />
 
                         </LinearLayout>
@@ -83,33 +83,120 @@
                             android:layout_height="0dp"
                             android:layout_weight="1" />
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginRight="12dp"
-                            android:clickable="true"
-                            android:foreground="?android:attr/selectableItemBackground"
-                            app:srcCompat="@drawable/ic_dashboard_black_24dp" />
-
                     </LinearLayout>
 
                     <!--Main Media!-->
-                    <RelativeLayout
-                        android:id="@+id/relativelayout"
+                    <LinearLayout
+                        android:id="@+id/statistics"
                         android:layout_width="match_parent"
-                        android:layout_height="160dp">
+                        android:layout_height="160dp"
+                        android:background="@color/backgroundAccent"
+                        android:orientation="horizontal"
+                        android:paddingBottom="28dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp">
+                        <!--Total-->
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
 
+                            <ProgressBar
+                                style="?android:progressBarStyleHorizontal"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_centerInParent="true"
+                                android:progress="100"
+                                android:progressDrawable="@drawable/progress_bar_circle" />
+
+                            <TextView
+                                android:id="@+id/total_number"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:textColor="@color/colorBackgroundLight"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerHorizontal="true"
+                                android:text="Σύνολο"
+                                android:textColor="@color/colorBackgroundLight" />
+                        </RelativeLayout>
+                        <!--Passed-->
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <ProgressBar
+                                android:id="@+id/passed_progress"
+                                style="?android:progressBarStyleHorizontal"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_centerInParent="true"
+                                android:progress="20"
+                                android:progressDrawable="@drawable/progress_bar_success" />
+
+                            <TextView
+                                android:id="@+id/passed_number"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:textColor="@color/colorSuccess"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerHorizontal="true"
+                                android:text="Περασμένα"
+                                android:textColor="@color/colorBackgroundLight" />
+                        </RelativeLayout>
+                        <!--Failed-->
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <ProgressBar
+                                android:id="@+id/failed_progress"
+                                style="?android:progressBarStyleHorizontal"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_centerInParent="true"
+                                android:progressDrawable="@drawable/progress_bar_fail" />
+
+                            <TextView
+                                android:id="@+id/failed_number"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:textColor="@color/colorFail"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerHorizontal="true"
+                                android:text="Χρωστούμενα"
+                                android:textColor="@color/colorBackgroundLight" />
+                        </RelativeLayout>
                         <!--TODO MAIN OVERVIEW!-->
 
-                    </RelativeLayout>
+
+                    </LinearLayout>
 
                     <!--Supporting Text!-->
                     <TextView
+                        android:id="@+id/exam_mode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="12dp"
-                        android:text="Greyhound divisively hello coldly wonderfully marginally far upon excluding."
+                        android:layout_margin="6dp"
                         android:textColor="#2b2b2b" />
                     <!--Divider!-->
                     <View
@@ -134,7 +221,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="#fff"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="16dp">
                 <!--Thick Line!-->
                 <!--<View-->
                 <!--android:layout_width="match_parent"-->

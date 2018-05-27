@@ -63,7 +63,7 @@ public class TaskInfoFragment extends Fragment {
         String year = (task.getTaskDueYear() < 10 ? "0" : "") + task.getTaskDueYear();
         String hour = (task.getTaskDueHour() < 10 ? "0" : "") + task.getTaskDueHour();
         String minute = (task.getTaskDueMinute() < 10 ? "0" : "") + task.getTaskDueMinute();
-        if(task.getTaskDueDay() == 0){
+        if(task.getTaskDueDay() == -1){
             date.setVisibility(View.GONE);
             time.setVisibility(View.GONE);
             dueTitle.setVisibility(View.GONE);

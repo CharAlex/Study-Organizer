@@ -15,10 +15,10 @@ import android.view.View;
 import com.example.alexchar.studyorganizer.R;
 import com.example.alexchar.studyorganizer.fragments.FailedMarksFragment;
 import com.example.alexchar.studyorganizer.fragments.PassedMarksFragment;
-import com.example.alexchar.studyorganizer.fragments.SetMarkFragment;
+import com.example.alexchar.studyorganizer.fragments.MarkSetFragment;
 
 public class MarkActivity extends AppCompatActivity {
-    FloatingActionButton floatingActionButton;
+    private FloatingActionButton floatingActionButton;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private PassedMarksFragment tab1;
     private FailedMarksFragment tab2;
@@ -87,7 +87,7 @@ public class MarkActivity extends AppCompatActivity {
         });
     }
     private void openFragment(){
-        SetMarkFragment fragment = new SetMarkFragment();
+        MarkSetFragment fragment = new MarkSetFragment();
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
 
         /*add_mark_container is the container that is below the viewpager in the xml file so it will

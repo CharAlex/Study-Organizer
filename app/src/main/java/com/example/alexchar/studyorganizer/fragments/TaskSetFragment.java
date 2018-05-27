@@ -37,7 +37,7 @@ import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
-public class setTaskFragment extends Fragment {
+public class TaskSetFragment extends Fragment {
     private Button cancel_button, save_button;
     private EditText datepicker_button, timepicker_button, datepicker, timepicker, title, notes;
     private SubjectDatabase sDatabase;
@@ -50,10 +50,8 @@ public class setTaskFragment extends Fragment {
     private Task task = new Task(), editTaskObject;
     private TaskDatabase tDatabase;
     private ImageButton clear_date_button, clear_time_button;
-//    HashMap that contains the task id and the requestCode
-    private HashMap<Integer, Integer> remindersSet = new HashMap<>();
 
-    public setTaskFragment() {
+    public TaskSetFragment() {
         // Required empty public constructor
     }
 
@@ -134,6 +132,11 @@ public class setTaskFragment extends Fragment {
                 clear_time_button.setVisibility(View.INVISIBLE);
             }
         });
+
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DATE,editTaskObject.getTaskDueDay());
+        cal.set(Calendar.MONTH,editTaskObject.getTaskDueMonth());
+        cal.set(Calendar.YEAR,editTaskObject.getTaskDueYear());
 
         save_button.setText("Αποθήκευση");
         save_button.setOnClickListener(new View.OnClickListener() {
@@ -245,7 +248,7 @@ public class setTaskFragment extends Fragment {
 //                        Only if the date is set then enable timepicker_button
                         timepicker.setEnabled(true);
                     }
-                }, year, month, day);
+                }, editTaskObject != null ? editTaskObject.getTaskDueYear() : year, editTaskObject != null ? editTaskObject.getTaskDueMonth() : month, editTaskObject != null ? editTaskObject.getTaskDueDay() : day);
                 datePickerDialog.show();
             }
         });
@@ -261,7 +264,7 @@ public class setTaskFragment extends Fragment {
                         String setTime = ((hour) < 10 ? "0" : "") + hour + ":" + ((minute) < 10 ? "0" : "") + minute;
                         timepicker.setText(setTime);
 //                        If datepicker is set then show the button to clear the text
-                        if (!timepicker.getText().toString().equals("Ημερομηνία")) {
+                        if (!timepicker.getText().toString().equals("Ώρα")) {
                             clear_time_button.setVisibility(View.VISIBLE);
                             clear_time_button.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -274,7 +277,7 @@ public class setTaskFragment extends Fragment {
                             });
                         }
                     }
-                }, hour, minute, true);
+                }, editTaskObject != null ? editTaskObject.getTaskDueHour() : hour, editTaskObject != null ? editTaskObject.getTaskDueMinute() : minute, true);
                 timePickerDialog.show();
             }
         });

@@ -16,16 +16,25 @@ public class Exam {
     private int examMonth;
     @ColumnInfo(name = "exam_year")
     private int examYear;
+    @ColumnInfo(name = "exam_minute")
+    private int examMinute;
+    @ColumnInfo(name = "exam_hour")
+    private int examHour;
     @ColumnInfo(name = "exam_room")
-    private int examRoom;
+    private String examRoom;
     @ColumnInfo(name = "exam_difficulty")
     private int examDifficulty;
 
-    public Exam(int subjectId, int examDay, int examMonth, int examYear, int examRoom, int examDifficulty) {
+    public Exam() {
+    }
+
+    public Exam(int subjectId, int examDay, int examMonth, int examYear, int examMinute, int examHour, String examRoom, int examDifficulty) {
         this.subjectId = subjectId;
         this.examDay = examDay;
         this.examMonth = examMonth;
         this.examYear = examYear;
+        this.examMinute = examMinute;
+        this.examHour = examHour;
         this.examRoom = examRoom;
         this.examDifficulty = examDifficulty;
     }
@@ -70,11 +79,27 @@ public class Exam {
         this.examYear = examYear;
     }
 
-    public int getExamRoom() {
+    public int getExamMinute() {
+        return examMinute;
+    }
+
+    public void setExamMinute(int examMinute) {
+        this.examMinute = examMinute;
+    }
+
+    public int getExamHour() {
+        return examHour;
+    }
+
+    public void setExamHour(int examHour) {
+        this.examHour = examHour;
+    }
+
+    public String getExamRoom() {
         return examRoom;
     }
 
-    public void setExamRoom(int examRoom) {
+    public void setExamRoom(String examRoom) {
         this.examRoom = examRoom;
     }
 

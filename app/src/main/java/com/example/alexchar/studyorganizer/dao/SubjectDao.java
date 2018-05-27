@@ -41,4 +41,6 @@ public interface SubjectDao {
             " WHERE sid = :id")
     void  updateGrade(int subjectGrade, int id);
 
+    @Query("SELECT COUNT(*) FROM subject WHERE subject_grade >= 5")
+    int  getPassedSubjects();
 }

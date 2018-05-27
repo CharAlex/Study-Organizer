@@ -32,8 +32,9 @@ public interface ExamDao {
     @Query("DELETE FROM exam")
     void deleteAll();
 
-    @Query("UPDATE exam SET exam_day = :examDay, exam_month = :examMonth, exam_year = :examYear, exam_difficulty = :examDifficulty, subject_id = :subjectId  WHERE eid = :eid")
-    void  update(int examDay, int examMonth, int examYear, int examDifficulty, int subjectId, int eid);
+    @Query("UPDATE exam SET exam_day = :examDay, exam_month = :examMonth, exam_year = :examYear, exam_difficulty = :examDifficulty, subject_id = :subjectId, exam_minute = :examMinute," +
+            "exam_hour = :examHour, exam_room = :examRoom  WHERE eid = :eid")
+    void  update(int examDay, int examMonth, int examYear, int examDifficulty, int subjectId, int eid, int examMinute, int examHour, String examRoom);
 
 
 }
