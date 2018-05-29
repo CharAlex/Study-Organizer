@@ -46,6 +46,7 @@ public class TaskInfoFragment extends Fragment {
         title.setText(task.getTaskName());
         Subject taskSubject = sDatabase.subjectDao().findById(task.getSubjectId());
         if(taskSubject!=null){
+            subject.setVisibility(View.VISIBLE);
             subject.setText(taskSubject.getSubjectName());
         }
         else{

@@ -8,20 +8,36 @@
     android:orientation="vertical"
     tools:context="com.example.alexchar.studyorganizer.activities.MainActivity">
 
-    <android.support.v7.widget.Toolbar
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary">
-
-        <TextView
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="16dp"
-            android:gravity="center"
-            android:text="Dashboard"
-            android:textColor="#eeeeee"
-            android:textSize="22dp" />
-    </android.support.v7.widget.Toolbar>
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="16dp"
+                android:gravity="center"
+                android:text="Dashboard"
+                android:textColor="#eeeeee"
+                android:textSize="22dp" />
+        </android.support.v7.widget.Toolbar>
+        <ImageView
+            android:id="@+id/usefull_links"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/toolbar"
+            android:layout_alignBottom="@id/toolbar"
+            app:srcCompat="@drawable/ic_link_black_24dp"
+            android:tint="@color/white"
+            android:layout_alignParentRight="true"
+            android:paddingRight="12dp"/>
+    </RelativeLayout>
+
 
     <ScrollView
         android:layout_width="match_parent"

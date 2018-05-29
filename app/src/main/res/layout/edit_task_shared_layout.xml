@@ -32,7 +32,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/fragment_title"
-            android:layout_marginBottom="12dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="12dp"
@@ -43,12 +42,54 @@
             android:paddingLeft="8dp"
             android:paddingTop="2dp" />
 
+        <RelativeLayout
+            android:id="@+id/autocomplete_search_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/set_title_input"
+            android:orientation="vertical">
+
+            <AutoCompleteTextView
+                android:id="@+id/autocomplete_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/corner_radius"
+                android:hint="Μάθημα"
+                android:paddingBottom="4dp"
+                android:paddingLeft="32dp"
+                android:paddingTop="2dp" />
+
+            <ImageView
+                android:id="@+id/search_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/autocomplete_search"
+                android:layout_alignLeft="@+id/autocomplete_search"
+                android:layout_alignTop="@id/autocomplete_search"
+                android:padding="5dp"
+                app:srcCompat="@drawable/ic_search_black_24dp" />
+
+            <ImageView
+                android:id="@+id/dropdown_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/autocomplete_search"
+                android:layout_alignRight="@+id/autocomplete_search"
+                android:layout_alignTop="@id/autocomplete_search"
+                android:padding="5dp"
+                app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp" />
+
+        </RelativeLayout>
+
         <!--Notes-->
         <EditText
             android:id="@+id/notes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/set_title_input"
+            android:layout_below="@id/autocomplete_search_layout"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="12dp"

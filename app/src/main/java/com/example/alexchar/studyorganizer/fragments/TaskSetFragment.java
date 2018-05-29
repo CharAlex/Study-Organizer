@@ -15,10 +15,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -44,12 +49,13 @@ public class TaskSetFragment extends Fragment {
     private List<Subject> subjectList;
     private List<String> subjectNamesList = new ArrayList<>();
     private List<Integer> subjectIdsList = new ArrayList<>();
-    private int selectedSubjectId, requestCode = 1;
+    private int selectedSubjectId, requestCode = 1, autocompletedSubjectId;
     private Calendar mCurrentDate;
     private int day = -1, month = -1, year = -1, hour = -1, minute = -1;
     private Task task = new Task(), editTaskObject;
     private TaskDatabase tDatabase;
     private ImageButton clear_date_button, clear_time_button;
+    private AutoCompleteTextView autoCompleteTextView;
 
     public TaskSetFragment() {
         // Required empty public constructor
@@ -200,6 +206,7 @@ public class TaskSetFragment extends Fragment {
     }
 
     private void setButtons(final View mView) {
+        setAutoCompleteTextView(mView);
         setCurrentDate();
         setCurrentTime();
 
@@ -224,11 +231,11 @@ public class TaskSetFragment extends Fragment {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(final DatePicker datePicker, int year, int month, int day) {
+                        //                        Print the real month and not the index of it
+                        month++;
                         task.setTaskDueYear(year);
                         task.setTaskDueMonth(month);
                         task.setTaskDueDay(day);
-//                        Print the real month and not the index of it
-                        month++;
                         String setDate = ((day) < 10 ? "0" : "") + day + "/" + ((month) < 10 ? "0" : "") + month + "/" + ((year) < 10 ? "0" : "") + year;
                         datepicker.setText(setDate);
 //                        If datepicker is set then show the button to clear the text
@@ -291,6 +298,7 @@ public class TaskSetFragment extends Fragment {
                     task.setTaskName(title.getText().toString());
                     task.setSubjectId(selectedSubjectId);
                     task.setTaskNotes(notes.getText().toString());
+                    task.setSubjectId(autocompletedSubjectId);
                     int id = (int) tDatabase.taskDao().insert(task);
                     if(!datepicker.getText().toString().equals("Ημερομηνία"))
                         setAlarm(id);
@@ -372,5 +380,64 @@ public class TaskSetFragment extends Fragment {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), reminderForTaskTid, intent, 0);
         Log.d(TAG, "setAlarm: TID cancel " + reminderForTaskTid );
         alarmManager.cancel(pendingIntent);
+    }
+
+    private void setAutoCompleteTextView(View view) {
+        autoCompleteTextView = view.findViewById(R.id.autocomplete_search);
+        ImageView dropdownButton = view.findViewById(R.id.dropdown_icon);
+        sDatabase = SubjectDatabase.getSubjectDatabase(getActivity());
+        subjectList = sDatabase.subjectDao().getAll();
+
+
+//        Getting the names of the subjects and adding them in to the array
+        for (Subject subject: subjectList){
+            subjectNamesList.add(subject.getSubjectName());
+//            Store ids of the subjects in same position in order to use this id to update the selected subject grade
+            subjectIdsList.add(subject.getSid());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),R.layout.support_simple_spinner_dropdown_item,subjectNamesList);
+        autoCompleteTextView.setAdapter(adapter);
+
+//        When the user presses at least one button the autocompletetextview searches the array
+        autoCompleteTextView.setThreshold(1);
+
+//        Setting up the dropwdown button for displaying all the subjects
+        dropdownButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                autoCompleteTextView.showDropDown();
+            }
+        });
+
+//        Make sure that user select the name from the existing name stored in subjectNameList
+        autoCompleteTextView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(!b) {
+                    String typedSubject = autoCompleteTextView.getText().toString();
+
+                    ListAdapter listAdapter = autoCompleteTextView.getAdapter();
+                    for(int i = 0; i < listAdapter.getCount(); i++) {
+                        String existingSubject = listAdapter.getItem(i).toString();
+                        if(typedSubject.equals(existingSubject)) {
+                            autocompletedSubjectId = subjectIdsList.get(i);
+                            return;
+                        }
+                    }
+//                    if focused changed and the the typed subject isnt equal to any existing subject then set the text to null
+                    autoCompleteTextView.setText("");
+                }
+            }
+        });
+
+//        get the id of the subject that was selected from the autocompletetextview
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                int index = subjectNamesList.indexOf(autoCompleteTextView.getText().toString());
+                autocompletedSubjectId = subjectIdsList.get(index);
+                Log.d(TAG, "ID SELECTED: " + selectedSubjectId);
+            }
+        });
     }
 }

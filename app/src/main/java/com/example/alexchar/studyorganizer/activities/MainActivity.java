@@ -5,9 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.alexchar.studyorganizer.FacultyActivity;
 import com.example.alexchar.studyorganizer.R;
 import com.example.alexchar.studyorganizer.database.SubjectDatabase;
 
@@ -17,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private SubjectDatabase sDatabase;
     private ProgressBar passedProgress, failedProgress;
     private TextView total,passed,failed;
+    private ImageView linkButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         marks_button = findViewById(R.id.marks_button);
         task_button = findViewById(R.id.todo_button);
         exam_button = findViewById(R.id.exam_button);
+        linkButton = findViewById(R.id.usefull_links);
 
         subject_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +82,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ExamActivity.class);
+                startActivity(intent);
+            }
+        });
+        linkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, FacultyActivity.class);
                 startActivity(intent);
             }
         });
